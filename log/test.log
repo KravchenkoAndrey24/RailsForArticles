@@ -1,0 +1,1325 @@
+  [1m[35m (23.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "authgit_test"[0m
+  [1m[35m (152.5ms)[0m  [1m[35mCREATE DATABASE "authgit_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "provider" character varying DEFAULT 'email' NOT NULL, "uid" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "allow_password_change" boolean DEFAULT FALSE, "remember_created_at" timestamp, "confirmation_token" character varying, "confirmed_at" timestamp, "confirmation_sent_at" timestamp, "unconfirmed_email" character varying, "name" character varying, "nickname" character varying, "image" character varying, "email" character varying, "tokens" json, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmation_token")[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_uid_and_provider" ON "users" ("uid", "provider")[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210802140047)[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2021-08-02 14:11:34.751708"], ["updated_at", "2021-08-02 14:11:34.751708"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "08f2f891dfa731facfeb66cdd2e997e5def5218f"], ["created_at", "2021-08-02 14:11:34.756381"], ["updated_at", "2021-08-02 14:11:34.756381"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (2.1ms)[0m  [1m[34m            SELECT schemaname || '.' || tablename
+            FROM pg_tables
+            WHERE
+              tablename !~ '_prt_' AND
+              tablename <> 'schema_migrations'
+  AND tablename <> 'ar_internal_metadata'
+ AND
+              schemaname = ANY (current_schemas(false))
+[0m
+  [1m[35m (1.3ms)[0m  [1m[34mselect table_name from information_schema.views where table_schema = 'authgit_test'[0m
+  [1m[35m (10.4ms)[0m  [1m[35mTRUNCATE TABLE "users" RESTART IDENTITY RESTRICT;[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:11:34 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$G0RG50O8lFiIdx3D7N1SF.ihEkJDlx7bB5A9Xbp/Q5gGOS70VsNV2"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:11:36.099764"], ["updated_at", "2021-08-02 14:11:36.099764"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"O7Ygp2FX8PXpTl1fPgg7kw\\\":{\\\"token\\\":\\\"$2a$04$T2vP8pyr5Z53oWtn6XGjgODri6PGbg.VMFFCMHy8jvFkuQDokz.I2\\\",\\\"expiry\\\":1629123096}}\""], ["updated_at", "2021-08-02 14:11:36.103308"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"O7Ygp2FX8PXpTl1fPgg7kw\\\":{\\\"token\\\":\\\"$2a$04$F5E1fhbdpGUvDspHRXFnVeSv1ccW5FQDItZfNoTYwJWM7Ic2E/FT2\\\",\\\"expiry\\\":1629123096,\\\"last_token\\\":\\\"$2a$04$T2vP8pyr5Z53oWtn6XGjgODri6PGbg.VMFFCMHy8jvFkuQDokz.I2\\\",\\\"updated_at\\\":\\\"2021-08-02T14:11:36Z\\\"}}\""], ["updated_at", "2021-08-02 14:11:36.109183"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 1254ms (Views: 0.2ms | ActiveRecord: 9.9ms | Allocations: 1049413)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:11:36 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$7ttUC7dUqLhwohBwuI4oku4aLs248JSOnyJ1fL.zhtA2v2VejSymi"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:11:36.320489"], ["updated_at", "2021-08-02 14:11:36.320489"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"AI_efbmIlGGxfCaUrDY91g\\\":{\\\"token\\\":\\\"$2a$04$w.d1179k/lXyI945B.7Pe.bayrXsOl.PTCTtdJAsSEw0DsfxstlRG\\\",\\\"expiry\\\":1629123096}}\""], ["updated_at", "2021-08-02 14:11:36.323387"], ["id", 2]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"AI_efbmIlGGxfCaUrDY91g\\\":{\\\"token\\\":\\\"$2a$04$cktQedes3nyulpGLwP7GjucWEkT9tRfIOnwUTedH8ftvdEESDFge.\\\",\\\"expiry\\\":1629123096,\\\"last_token\\\":\\\"$2a$04$w.d1179k/lXyI945B.7Pe.bayrXsOl.PTCTtdJAsSEw0DsfxstlRG\\\",\\\"updated_at\\\":\\\"2021-08-02T14:11:36Z\\\"}}\""], ["updated_at", "2021-08-02 14:11:36.329737"], ["id", 2]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 212ms (Views: 0.2ms | ActiveRecord: 4.0ms | Allocations: 3449)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:11:36 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$LvQa6orE2brGqawT9GYb6eH5UgtlycNDgKDcfDnx58BWU7J9.W0G."], ["email", "user@example.com"], ["created_at", "2021-08-02 14:11:36.536462"], ["updated_at", "2021-08-02 14:11:36.536462"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"p3-Km26DW8ZJYIKM02TOdA\\\":{\\\"token\\\":\\\"$2a$04$Ku0J1RDbNBf9j9T1pE7XJOCL2ajxaclKUMimLI8xw9YNVx1aCOdXC\\\",\\\"expiry\\\":1629123096}}\""], ["updated_at", "2021-08-02 14:11:36.539458"], ["id", 3]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"p3-Km26DW8ZJYIKM02TOdA\\\":{\\\"token\\\":\\\"$2a$04$SyJ56glzmPTOegNnFZboCuVfyGwQ829Mk689m6hLPQKu.7nNN.yie\\\",\\\"expiry\\\":1629123096,\\\"last_token\\\":\\\"$2a$04$Ku0J1RDbNBf9j9T1pE7XJOCL2ajxaclKUMimLI8xw9YNVx1aCOdXC\\\",\\\"updated_at\\\":\\\"2021-08-02T14:11:36Z\\\"}}\""], ["updated_at", "2021-08-02 14:11:36.545141"], ["id", 3]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 210ms (Views: 0.2ms | ActiveRecord: 3.6ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:11:36 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$k6GhVcU2hT/Z5yNvwQz6DOxviTcW3rTMXkZV7Lz2WbabQZPdfhon6"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:11:36.752648"], ["updated_at", "2021-08-02 14:11:36.752648"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"lpWCf9O7Ot_3zjJzNJ2nXw\\\":{\\\"token\\\":\\\"$2a$04$GH0nycJ2QYqX4et8oFXMaetc0q120pfxs/Jxeaw4l8jOb6pKFnAwi\\\",\\\"expiry\\\":1629123096}}\""], ["updated_at", "2021-08-02 14:11:36.755946"], ["id", 4]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"lpWCf9O7Ot_3zjJzNJ2nXw\\\":{\\\"token\\\":\\\"$2a$04$wg1RzXMnOT590muU8mmkjOlR/gKn0oY2CCETctfMsF7t5WVwmgoKW\\\",\\\"expiry\\\":1629123096,\\\"last_token\\\":\\\"$2a$04$GH0nycJ2QYqX4et8oFXMaetc0q120pfxs/Jxeaw4l8jOb6pKFnAwi\\\",\\\"updated_at\\\":\\\"2021-08-02T14:11:36Z\\\"}}\""], ["updated_at", "2021-08-02 14:11:36.762242"], ["id", 4]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 212ms (Views: 0.2ms | ActiveRecord: 4.0ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:11:36 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$40JU.uC/G5Aw7EJ3qsIjnugMbdgvgNjjaPceg97G1w/9Y6J5hdknC"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:11:36.969505"], ["updated_at", "2021-08-02 14:11:36.969505"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"iBqfds8jxSVl1FCJAI6kvQ\\\":{\\\"token\\\":\\\"$2a$04$gFsD.OtQ1Bg2ISnA6vP8NugwAZDcjiutgLRjS/I165SkpxmqBVvAu\\\",\\\"expiry\\\":1629123096}}\""], ["updated_at", "2021-08-02 14:11:36.972681"], ["id", 5]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"iBqfds8jxSVl1FCJAI6kvQ\\\":{\\\"token\\\":\\\"$2a$04$plAJdaSgAy6NpQCHvtexn.INiLPGUzn8gpVEbT8tPAC274BfGYElG\\\",\\\"expiry\\\":1629123096,\\\"last_token\\\":\\\"$2a$04$gFsD.OtQ1Bg2ISnA6vP8NugwAZDcjiutgLRjS/I165SkpxmqBVvAu\\\",\\\"updated_at\\\":\\\"2021-08-02T14:11:36Z\\\"}}\""], ["updated_at", "2021-08-02 14:11:36.986134"], ["id", 5]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 219ms (Views: 0.1ms | ActiveRecord: 4.1ms | Allocations: 3450)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:11:36 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$n3A9jR7IT9zSgggaGD82i.9y1iMIe7ofca9EOg1yl0ntkI8Y8KHzC"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:11:37.195437"], ["updated_at", "2021-08-02 14:11:37.195437"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"8-IavGACNLGz_HbQMI0QGQ\\\":{\\\"token\\\":\\\"$2a$04$9Q9uHycdaUf2nOMQaJCw4.r8IzxSxFrfGoLUCvbxE1UC/dWEZ90yy\\\",\\\"expiry\\\":1629123097}}\""], ["updated_at", "2021-08-02 14:11:37.198188"], ["id", 6]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"8-IavGACNLGz_HbQMI0QGQ\\\":{\\\"token\\\":\\\"$2a$04$JJ5RgPTGdS3merf6Z/73Yu4ImP1W9vCB8o5fVbw.RntPQ4dlmdSaW\\\",\\\"expiry\\\":1629123097,\\\"last_token\\\":\\\"$2a$04$9Q9uHycdaUf2nOMQaJCw4.r8IzxSxFrfGoLUCvbxE1UC/dWEZ90yy\\\",\\\"updated_at\\\":\\\"2021-08-02T14:11:37Z\\\"}}\""], ["updated_at", "2021-08-02 14:11:37.203632"], ["id", 6]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 211ms (Views: 0.1ms | ActiveRecord: 3.4ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:11:37 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$O6rYXc61mTbHfs3RSTx9oOD2fsPfwuahnrNodPdf63JARA1dUYQea"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:11:37.411138"], ["updated_at", "2021-08-02 14:11:37.411138"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"OWCMf5GAeh0A84iOtezp8A\\\":{\\\"token\\\":\\\"$2a$04$HCjL1QGvW2wpcsknQOzqhexPJvVZUDYkcGc.Q4rZ9AKrdV6gNfrOG\\\",\\\"expiry\\\":1629123097}}\""], ["updated_at", "2021-08-02 14:11:37.413916"], ["id", 7]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"OWCMf5GAeh0A84iOtezp8A\\\":{\\\"token\\\":\\\"$2a$04$4..VDSz9ZB0fzi6rbYZ9V.dxMB84X5ZKW3HDiq1VVE0a16G6dk8oa\\\",\\\"expiry\\\":1629123097,\\\"last_token\\\":\\\"$2a$04$HCjL1QGvW2wpcsknQOzqhexPJvVZUDYkcGc.Q4rZ9AKrdV6gNfrOG\\\",\\\"updated_at\\\":\\\"2021-08-02T14:11:37Z\\\"}}\""], ["updated_at", "2021-08-02 14:11:37.419881"], ["id", 7]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 211ms (Views: 0.1ms | ActiveRecord: 3.7ms | Allocations: 3447)
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:11:37 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "test@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "test@example.com"], ["encrypted_password", "$2a$12$rJsT8lRMWiVVTvvuBmY4U.0MTyrsn.gZtNT984Q0I4Yf8wTFJ0Pri"], ["email", "test@example.com"], ["created_at", "2021-08-02 14:11:37.625538"], ["updated_at", "2021-08-02 14:11:37.625538"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"HmrEUMJrboghUn5Q3c6cfg\\\":{\\\"token\\\":\\\"$2a$04$W19giZwtwEebDH2af39XqeI3.11DOzTrIP5CAnPtPVnFWv0NgJEje\\\",\\\"expiry\\\":1629123097}}\""], ["updated_at", "2021-08-02 14:11:37.628750"], ["id", 8]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"HmrEUMJrboghUn5Q3c6cfg\\\":{\\\"token\\\":\\\"$2a$04$hk89EWcSljjoWrI9dIRs3urMGmf4iFN8UOt9y52Nz.Au0aDNe4s7.\\\",\\\"expiry\\\":1629123097,\\\"last_token\\\":\\\"$2a$04$W19giZwtwEebDH2af39XqeI3.11DOzTrIP5CAnPtPVnFWv0NgJEje\\\",\\\"updated_at\\\":\\\"2021-08-02T14:11:37Z\\\"}}\""], ["updated_at", "2021-08-02 14:11:37.634520"], ["id", 8]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 209ms (Views: 0.3ms | ActiveRecord: 3.6ms | Allocations: 3417)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:11:37 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+Filter chain halted as :validate_sign_up_params rendered or redirected
+Completed 422 Unprocessable Entity in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 207)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (2.0ms)[0m  [1m[34m            SELECT schemaname || '.' || tablename
+            FROM pg_tables
+            WHERE
+              tablename !~ '_prt_' AND
+              tablename <> 'schema_migrations'
+  AND tablename <> 'ar_internal_metadata'
+ AND
+              schemaname = ANY (current_schemas(false))
+[0m
+  [1m[35m (1.2ms)[0m  [1m[34mselect table_name from information_schema.views where table_schema = 'authgit_test'[0m
+  [1m[35m (14.7ms)[0m  [1m[35mTRUNCATE TABLE "users" RESTART IDENTITY RESTRICT;[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:12:33 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$ypLGwUM21/0UunGxOGSPyOjh.00nI/wW/JrOGPO3qmg6Z1UXxIbya"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:12:33.825261"], ["updated_at", "2021-08-02 14:12:33.825261"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"IP3fv5vU0dWNIyaSqn1f8A\\\":{\\\"token\\\":\\\"$2a$04$Bo6hj4m9bS0jpo2bOuo8zuo2cgujjJwNf37ZGtRhTRIOpKVHYdo2a\\\",\\\"expiry\\\":1629123153}}\""], ["updated_at", "2021-08-02 14:12:33.828625"], ["id", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"IP3fv5vU0dWNIyaSqn1f8A\\\":{\\\"token\\\":\\\"$2a$04$2cXa4HKuQ.PuXRJYhkliB.ZWNcuQVdhiVBQfKozDa/YD1LWh12b6S\\\",\\\"expiry\\\":1629123153,\\\"last_token\\\":\\\"$2a$04$Bo6hj4m9bS0jpo2bOuo8zuo2cgujjJwNf37ZGtRhTRIOpKVHYdo2a\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:33Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:33.834723"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 343ms (Views: 0.2ms | ActiveRecord: 9.6ms | Allocations: 368939)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:12:33 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$jyaNGQc8Q85iZYoUbNZ7ouGsJVgvkL.AryJLLRPD7FpCxC7ynUNI."], ["email", "user@example.com"], ["created_at", "2021-08-02 14:12:34.039135"], ["updated_at", "2021-08-02 14:12:34.039135"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"8eswCCej0YFKD92YRLgYfw\\\":{\\\"token\\\":\\\"$2a$04$9KCgixB.9zh1clp5gwJHhuSheTGqwfls9aSRbc9bzqGfaZHgb4H9e\\\",\\\"expiry\\\":1629123154}}\""], ["updated_at", "2021-08-02 14:12:34.041618"], ["id", 2]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"8eswCCej0YFKD92YRLgYfw\\\":{\\\"token\\\":\\\"$2a$04$9lWJX1APxB29q8ts3.6lUOd13XRYaUiKI7SdPIauj6B4slpuaVuJu\\\",\\\"expiry\\\":1629123154,\\\"last_token\\\":\\\"$2a$04$9KCgixB.9zh1clp5gwJHhuSheTGqwfls9aSRbc9bzqGfaZHgb4H9e\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:34Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:34.046366"], ["id", 2]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 206ms (Views: 0.2ms | ActiveRecord: 2.6ms | Allocations: 3449)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:12:34 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$2rcXBz6LMff97lDNcj3FaOmzGBfjKZS.RRyn./wWOklsqnC.lT/Pq"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:12:34.244434"], ["updated_at", "2021-08-02 14:12:34.244434"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"cn6_BiRStxWbent_y3cHxg\\\":{\\\"token\\\":\\\"$2a$04$ibuRhIEVrqqYnjZD1L.8yeIz4/Fx.kLMRAeS2tcIg8zzhGXDfQnfC\\\",\\\"expiry\\\":1629123154}}\""], ["updated_at", "2021-08-02 14:12:34.247105"], ["id", 3]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"cn6_BiRStxWbent_y3cHxg\\\":{\\\"token\\\":\\\"$2a$04$z.TcRxeV3tcXKa86z159vuBfHGTgXUMqDgpOGuBIBu89OUrLyVJTS\\\",\\\"expiry\\\":1629123154,\\\"last_token\\\":\\\"$2a$04$ibuRhIEVrqqYnjZD1L.8yeIz4/Fx.kLMRAeS2tcIg8zzhGXDfQnfC\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:34Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:34.252802"], ["id", 3]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 202ms (Views: 0.1ms | ActiveRecord: 3.7ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:12:34 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$TpncSJ0Z1bqnEik/ThrFguZX/eo4mRLy1eblXMOhPLQQUjq8nP.Mm"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:12:34.451647"], ["updated_at", "2021-08-02 14:12:34.451647"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"ib4wcX-PFqmYYxx1aj7rLw\\\":{\\\"token\\\":\\\"$2a$04$MAmnp1MD/QL0YbJiEvVFteR2c8S3w6TzEv/fYVLxUqVLGbnJs0Rz2\\\",\\\"expiry\\\":1629123154}}\""], ["updated_at", "2021-08-02 14:12:34.454468"], ["id", 4]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"ib4wcX-PFqmYYxx1aj7rLw\\\":{\\\"token\\\":\\\"$2a$04$JiE.xDRZfkb2uLdZU6JQiume0S93qJTrZ96i5oce7xQyPuCbvFn8W\\\",\\\"expiry\\\":1629123154,\\\"last_token\\\":\\\"$2a$04$MAmnp1MD/QL0YbJiEvVFteR2c8S3w6TzEv/fYVLxUqVLGbnJs0Rz2\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:34Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:34.459596"], ["id", 4]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 202ms (Views: 0.1ms | ActiveRecord: 3.4ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:12:34 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$oQwIuk8K3NEMnPUzvmwp1Oy4vImV879zGIq2JKJdgFjE96.xpgMpu"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:12:34.663507"], ["updated_at", "2021-08-02 14:12:34.663507"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"cRm49l7ub9UyfFLlZNgdWw\\\":{\\\"token\\\":\\\"$2a$04$QbQnOBVnFWXTMPwOyexp5utLxW25sS/oF17/9aFhD9zeKPRF2.S4i\\\",\\\"expiry\\\":1629123154}}\""], ["updated_at", "2021-08-02 14:12:34.666270"], ["id", 5]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"cRm49l7ub9UyfFLlZNgdWw\\\":{\\\"token\\\":\\\"$2a$04$ZKVZct60i9mGRlXBVvomZuD7HlPOqR5sViXB2HvPtNRazy/grJkni\\\",\\\"expiry\\\":1629123154,\\\"last_token\\\":\\\"$2a$04$QbQnOBVnFWXTMPwOyexp5utLxW25sS/oF17/9aFhD9zeKPRF2.S4i\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:34Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:34.671722"], ["id", 5]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 208ms (Views: 0.3ms | ActiveRecord: 3.7ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:12:34 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$aqXaQ2A9g3681DU0P8CP0ujkAI5/BQs9crPDB95k8MQa14Amb0X5G"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:12:34.875999"], ["updated_at", "2021-08-02 14:12:34.875999"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"w3iAw6dl85erEP-3i-_66w\\\":{\\\"token\\\":\\\"$2a$04$vXE5q84/qi380tuuwgrIpOtP/HcqR86HqqEjvMtIF1ivEhm9iO2O6\\\",\\\"expiry\\\":1629123154}}\""], ["updated_at", "2021-08-02 14:12:34.879031"], ["id", 6]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"w3iAw6dl85erEP-3i-_66w\\\":{\\\"token\\\":\\\"$2a$04$/PtNxsnCFXgeuEFenE3QOekfM3sv2A7L/RcA.yCph5Lg9w.dJJBcC\\\",\\\"expiry\\\":1629123154,\\\"last_token\\\":\\\"$2a$04$vXE5q84/qi380tuuwgrIpOtP/HcqR86HqqEjvMtIF1ivEhm9iO2O6\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:34Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:34.885302"], ["id", 6]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 204ms (Views: 0.1ms | ActiveRecord: 4.4ms | Allocations: 3446)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:12:34 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$A9rCKrhGlN5X5R55FsJY7eEiX9NWhEOdxpF3CUkg5T3emqyqnUbze"], ["email", "user@example.com"], ["created_at", "2021-08-02 14:12:35.089044"], ["updated_at", "2021-08-02 14:12:35.089044"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"euqvrZ-x2Ni5HKDehonGpw\\\":{\\\"token\\\":\\\"$2a$04$BLuGSts0snMsfXPGa0iSHuXJOFdzNzcWGzvL84t.qOw52ffD1vyTm\\\",\\\"expiry\\\":1629123155}}\""], ["updated_at", "2021-08-02 14:12:35.092024"], ["id", 7]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"euqvrZ-x2Ni5HKDehonGpw\\\":{\\\"token\\\":\\\"$2a$04$6fZjeD0BeDUs/rxpQ4c8HOZFtssymd9L9MvlGAAskOu9SRMpjMKby\\\",\\\"expiry\\\":1629123155,\\\"last_token\\\":\\\"$2a$04$BLuGSts0snMsfXPGa0iSHuXJOFdzNzcWGzvL84t.qOw52ffD1vyTm\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:35Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:35.097276"], ["id", 7]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 207ms (Views: 0.1ms | ActiveRecord: 3.7ms | Allocations: 3447)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:12:35 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "test@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "test@example.com"], ["encrypted_password", "$2a$12$UpTaFKAlPcXe3iUVDMYIaOO1q8F7ogd.4lxUacw2OlSCbJ8Knnq5q"], ["email", "test@example.com"], ["created_at", "2021-08-02 14:12:35.296941"], ["updated_at", "2021-08-02 14:12:35.296941"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"SDoXT4e6CbbIbOSVhKOoaA\\\":{\\\"token\\\":\\\"$2a$04$9rZ9VlL6zO88MtfRTxMuQ.WCamiUBipBM/eLOk/WJvLSExBDrkVre\\\",\\\"expiry\\\":1629123155}}\""], ["updated_at", "2021-08-02 14:12:35.300016"], ["id", 8]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"SDoXT4e6CbbIbOSVhKOoaA\\\":{\\\"token\\\":\\\"$2a$04$Oyi2KXrZDvBXKnZbUjtmie/c7UhOalhtFPx9OKcta4sHxCpIto4mG\\\",\\\"expiry\\\":1629123155,\\\"last_token\\\":\\\"$2a$04$9rZ9VlL6zO88MtfRTxMuQ.WCamiUBipBM/eLOk/WJvLSExBDrkVre\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:35Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:35.306147"], ["id", 8]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 204ms (Views: 0.2ms | ActiveRecord: 3.8ms | Allocations: 3417)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 17:12:35 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+Filter chain halted as :validate_sign_up_params rendered or redirected
+Completed 422 Unprocessable Entity in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 207)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "christoper.raynor@hauck.name"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "christoper.raynor@hauck.name"], ["encrypted_password", "$2a$12$Pa6RZLmIHGuMmGuxvj09BOBoCjDeEEA13Kf6.LEx/BmdW.5scpCue"], ["email", "christoper.raynor@hauck.name"], ["created_at", "2021-08-02 14:12:35.517186"], ["updated_at", "2021-08-02 14:12:35.517186"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 17:12:35 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"christoper.raynor@hauck.name", "password"=>"[FILTERED]", "session"=>{"email"=>"christoper.raynor@hauck.name", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "christoper.raynor@hauck.name"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"wxl7J6TYlHI9O8QK39yk0A\\\":{\\\"token\\\":\\\"$2a$04$q1ZxX9UUynLorxQ0XvgayexWEyDl97o6CA5JTuTYREe3NMyTf8U/q\\\",\\\"expiry\\\":1629123155}}\""], ["updated_at", "2021-08-02 14:12:35.719082"], ["id", 9]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 14:12:35.720947"], ["last_sign_in_at", "2021-08-02 14:12:35.720947"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 14:12:35.721196"], ["id", 9]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"wxl7J6TYlHI9O8QK39yk0A\\\":{\\\"token\\\":\\\"$2a$04$2aVnRnlRVDgL/IFeHft8nuRiaQXdgzMukQUe.tvu3M26VZ1a3ccLK\\\",\\\"expiry\\\":1629123155,\\\"last_token\\\":\\\"$2a$04$q1ZxX9UUynLorxQ0XvgayexWEyDl97o6CA5JTuTYREe3NMyTf8U/q\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:35Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:35.726973"], ["id", 9]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 205ms (Views: 0.1ms | ActiveRecord: 3.0ms | Allocations: 3823)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "greg@schultz.org"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "greg@schultz.org"], ["encrypted_password", "$2a$12$ANR/PQLlGsUtyDI6h8aGneXofPBL2GsZOREWSVHoZCIUpNgwAs8I2"], ["email", "greg@schultz.org"], ["created_at", "2021-08-02 14:12:35.936925"], ["updated_at", "2021-08-02 14:12:35.936925"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 17:12:35 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"greg@schultz.org", "password"=>"[FILTERED]", "session"=>{"email"=>"greg@schultz.org", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "greg@schultz.org"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"7AQtAyNPN6KBHcC1Q3H96A\\\":{\\\"token\\\":\\\"$2a$04$oNZG2UTxdaaGk0WbPQBiA.z97OictfM1aWQs3u/6854VkEeepzx02\\\",\\\"expiry\\\":1629123156}}\""], ["updated_at", "2021-08-02 14:12:36.134540"], ["id", 10]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 14:12:36.136358"], ["last_sign_in_at", "2021-08-02 14:12:36.136358"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 14:12:36.136609"], ["id", 10]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"7AQtAyNPN6KBHcC1Q3H96A\\\":{\\\"token\\\":\\\"$2a$04$BxHLmnR1seRch3MNjkBKZe/2YFkK53Pr2SutgHJpVfGLTygbk0xx2\\\",\\\"expiry\\\":1629123156,\\\"last_token\\\":\\\"$2a$04$oNZG2UTxdaaGk0WbPQBiA.z97OictfM1aWQs3u/6854VkEeepzx02\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:36Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:36.143013"], ["id", 10]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 203ms (Views: 0.1ms | ActiveRecord: 3.7ms | Allocations: 3589)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "josie_damore@oberbrunner.biz"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "josie_damore@oberbrunner.biz"], ["encrypted_password", "$2a$12$/kbCrhFMLO6LbLHR24eSh.59.aRJllT0bTZKn7smsfey8FuC5tPbe"], ["email", "josie_damore@oberbrunner.biz"], ["created_at", "2021-08-02 14:12:36.341156"], ["updated_at", "2021-08-02 14:12:36.341156"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 17:12:36 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"josie_damore@oberbrunner.biz", "password"=>"[FILTERED]", "session"=>{"email"=>"josie_damore@oberbrunner.biz", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "josie_damore@oberbrunner.biz"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"iFm35RWbX5RD_WLlaRTBIg\\\":{\\\"token\\\":\\\"$2a$04$DIMzWceRY0HeFSKMdw7NuOGQ65s.57b7DJjimRgO/YVMmx3SRjfoa\\\",\\\"expiry\\\":1629123156}}\""], ["updated_at", "2021-08-02 14:12:36.535472"], ["id", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 14:12:36.537377"], ["last_sign_in_at", "2021-08-02 14:12:36.537377"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 14:12:36.537669"], ["id", 11]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"iFm35RWbX5RD_WLlaRTBIg\\\":{\\\"token\\\":\\\"$2a$04$FJUih83/3lwNRFcXnLUTw.lbKqWj7lV7hYiuE6b1dAPcpperKW8Ue\\\",\\\"expiry\\\":1629123156,\\\"last_token\\\":\\\"$2a$04$DIMzWceRY0HeFSKMdw7NuOGQ65s.57b7DJjimRgO/YVMmx3SRjfoa\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:36Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:36.543740"], ["id", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 200ms (Views: 0.1ms | ActiveRecord: 3.3ms | Allocations: 3594)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "annett@moen.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "annett@moen.com"], ["encrypted_password", "$2a$12$C4Vk9j/B9fDWaIRW37cnFeo16BCxT1SO3RSmoWrMFZIu8eITcUsNm"], ["email", "annett@moen.com"], ["created_at", "2021-08-02 14:12:36.750764"], ["updated_at", "2021-08-02 14:12:36.750764"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 17:12:36 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"annett@moen.com", "password"=>"[FILTERED]", "session"=>{"email"=>"annett@moen.com", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "annett@moen.com"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"841Vh1v7zegiaTe-PbBXCQ\\\":{\\\"token\\\":\\\"$2a$04$.LYNNa2Hkm/SbieIcTkJ6uOZ1nIDseZr97aU9wWTDTWC6zQovhQP2\\\",\\\"expiry\\\":1629123156}}\""], ["updated_at", "2021-08-02 14:12:36.957949"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 14:12:36.959824"], ["last_sign_in_at", "2021-08-02 14:12:36.959824"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 14:12:36.960077"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"841Vh1v7zegiaTe-PbBXCQ\\\":{\\\"token\\\":\\\"$2a$04$FhUDVHxIqUj1ssW5cvTdUue62plJJ7mXxcEwWIsM.OXWw7nd5n4Pq\\\",\\\"expiry\\\":1629123156,\\\"last_token\\\":\\\"$2a$04$.LYNNa2Hkm/SbieIcTkJ6uOZ1nIDseZr97aU9wWTDTWC6zQovhQP2\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:36Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:36.966207"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 213ms (Views: 0.1ms | ActiveRecord: 3.3ms | Allocations: 3589)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "katie@becker.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "katie@becker.com"], ["encrypted_password", "$2a$12$NOJmRdbEK1FBdhELfSOzu.nshXnoy89vrllsB11YCBbFfckCJpKSe"], ["email", "katie@becker.com"], ["created_at", "2021-08-02 14:12:37.173757"], ["updated_at", "2021-08-02 14:12:37.173757"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 17:12:37 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"katie@becker.com", "password"=>"[FILTERED]", "session"=>{"email"=>"katie@becker.com", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "katie@becker.com"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"p4bGu4jilSWNdhuXVLOF_g\\\":{\\\"token\\\":\\\"$2a$04$Y25lu8hZ2fSJijlGQ5YYMevA0f9bbPPhnBzXE3gAQe0Vl0PWYz4zO\\\",\\\"expiry\\\":1629123157}}\""], ["updated_at", "2021-08-02 14:12:37.381831"], ["id", 13]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 14:12:37.383407"], ["last_sign_in_at", "2021-08-02 14:12:37.383407"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 14:12:37.383614"], ["id", 13]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"p4bGu4jilSWNdhuXVLOF_g\\\":{\\\"token\\\":\\\"$2a$04$L7ggK3z8ZpnwMNnIgOJRY.TK/EuU3Ya6eODzU9vHtuEOd64kVu9FK\\\",\\\"expiry\\\":1629123157,\\\"last_token\\\":\\\"$2a$04$Y25lu8hZ2fSJijlGQ5YYMevA0f9bbPPhnBzXE3gAQe0Vl0PWYz4zO\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:37Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:37.388777"], ["id", 13]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 211ms (Views: 0.1ms | ActiveRecord: 2.8ms | Allocations: 3589)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "bennie.rutherford@armstrong-lynch.info"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "bennie.rutherford@armstrong-lynch.info"], ["encrypted_password", "$2a$12$.nlr9NSIFFBcQpa4P6TFs.oof2Js1xlcyYHfLAjRSnwmmF.fzGpiC"], ["email", "bennie.rutherford@armstrong-lynch.info"], ["created_at", "2021-08-02 14:12:37.596042"], ["updated_at", "2021-08-02 14:12:37.596042"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 17:12:37 +0300
+Processing by DeviseTokenAuth::SessionsController#create as HTML
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 205)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "johnathon@spencer.name"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "johnathon@spencer.name"], ["encrypted_password", "$2a$12$kl/SDsoAD/J83c2/B3ylieGOF6Ay5KfsxBUeRHZqxS5U6NuCA7O0C"], ["email", "johnathon@spencer.name"], ["created_at", "2021-08-02 14:12:37.805382"], ["updated_at", "2021-08-02 14:12:37.805382"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 17:12:37 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"johnathon@spencer.name", "password"=>"[FILTERED]", "session"=>{"email"=>"johnathon@spencer.name", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "johnathon@spencer.name"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"rvddbLIUMA5r-XZldCcQ8w\\\":{\\\"token\\\":\\\"$2a$04$Dq2JAbS8FM7sVK..OCznq.Xybp4rHrqaj/C7d8uH/UdKOs25aVZIm\\\",\\\"expiry\\\":1629123158}}\""], ["updated_at", "2021-08-02 14:12:38.012248"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 14:12:38.014301"], ["last_sign_in_at", "2021-08-02 14:12:38.014301"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 14:12:38.014566"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"rvddbLIUMA5r-XZldCcQ8w\\\":{\\\"token\\\":\\\"$2a$04$saBaS8/KYQH.YAGuUDWSc.WH1sGwyl5DmcVlxVrTu3TSnyGwsuYCO\\\",\\\"expiry\\\":1629123158,\\\"last_token\\\":\\\"$2a$04$Dq2JAbS8FM7sVK..OCznq.Xybp4rHrqaj/C7d8uH/UdKOs25aVZIm\\\",\\\"updated_at\\\":\\\"2021-08-02T14:12:38Z\\\"}}\""], ["updated_at", "2021-08-02 14:12:38.020421"], ["id", 15]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 212ms (Views: 0.1ms | ActiveRecord: 3.0ms | Allocations: 3589)
+Started DELETE "/api/v1/auth/sign_out" for 127.0.0.1 at 2021-08-02 17:12:38 +0300
+Processing by DeviseTokenAuth::SessionsController#destroy as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "johnathon@spencer.name"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", nil], ["updated_at", "2021-08-02 14:12:38.028033"], ["id", 15]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 1.2ms | Allocations: 1658)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (2.4ms)[0m  [1m[34m            SELECT schemaname || '.' || tablename
+            FROM pg_tables
+            WHERE
+              tablename !~ '_prt_' AND
+              tablename <> 'schema_migrations'
+  AND tablename <> 'ar_internal_metadata'
+ AND
+              schemaname = ANY (current_schemas(false))
+[0m
+  [1m[35m (1.2ms)[0m  [1m[34mselect table_name from information_schema.views where table_schema = 'authgit_test'[0m
+  [1m[35m (13.1ms)[0m  [1m[35mTRUNCATE TABLE "users" RESTART IDENTITY RESTRICT;[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:34:38 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$z.jMbfKDdxishU29mwls3ujhUD7.ivwULOjHB.oyuLCNyP68kK1L6"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:34:38.755581"], ["updated_at", "2021-08-02 15:34:38.755581"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"6ZMjQjLCOCgVMd-xOKFeyw\\\":{\\\"token\\\":\\\"$2a$04$ExLBM3aZRyBwBebDpeP2T.Vo9D2k.U9un8jjS7Z9oNPeYjKHFbNGi\\\",\\\"expiry\\\":1629128078}}\""], ["updated_at", "2021-08-02 15:34:38.759220"], ["id", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"6ZMjQjLCOCgVMd-xOKFeyw\\\":{\\\"token\\\":\\\"$2a$04$EXnaf6UVWYA1DGXBBa0BsuA3VLbwrbedKk8xyXV88QLHrtH7yjbwy\\\",\\\"expiry\\\":1629128078,\\\"last_token\\\":\\\"$2a$04$ExLBM3aZRyBwBebDpeP2T.Vo9D2k.U9un8jjS7Z9oNPeYjKHFbNGi\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:38Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:38.768678"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 368ms (Views: 0.2ms | ActiveRecord: 10.2ms | Allocations: 368937)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:34:38 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$aE0kFZCfS6y0VjEeCRGrj.BQVR/BFx/Oi/a2p7XjrPgyrcRJIhxxO"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:34:38.976469"], ["updated_at", "2021-08-02 15:34:38.976469"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.7ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"h5w2VsKjGYbodvKJH100-g\\\":{\\\"token\\\":\\\"$2a$04$bMtqkQU1kAn7kD3EFHvaOeSfhGzpYkw5PdbqZU5z4p7r5v2Vy3Al.\\\",\\\"expiry\\\":1629128078}}\""], ["updated_at", "2021-08-02 15:34:38.981896"], ["id", 2]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"h5w2VsKjGYbodvKJH100-g\\\":{\\\"token\\\":\\\"$2a$04$9O62oZydo4qX3hueFP.66uvz2qFlDk6zQLQNVQ5nKh8DA1AjQb7jK\\\",\\\"expiry\\\":1629128078,\\\"last_token\\\":\\\"$2a$04$bMtqkQU1kAn7kD3EFHvaOeSfhGzpYkw5PdbqZU5z4p7r5v2Vy3Al.\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:38Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:38.988923"], ["id", 2]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 214ms (Views: 0.2ms | ActiveRecord: 4.3ms | Allocations: 3449)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:34:38 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$Ubds7QN6ovph5mP17MHsFu5STQzEt0ra8MSOhv6ZOvsMev6Pi195W"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:34:39.193873"], ["updated_at", "2021-08-02 15:34:39.193873"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"hn4hxbOIEBoUzUGpD6nyqw\\\":{\\\"token\\\":\\\"$2a$04$zrsr2F6m65pCbtL6RHxOE.OIbWOen3Iupm89VY/LXsQNhUqJIq6Jy\\\",\\\"expiry\\\":1629128079}}\""], ["updated_at", "2021-08-02 15:34:39.196861"], ["id", 3]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"hn4hxbOIEBoUzUGpD6nyqw\\\":{\\\"token\\\":\\\"$2a$04$97E7Mt1owtoN6RI.u5hcSuIE11xT132SI1D9P.KvWvNMfRJdvc5wS\\\",\\\"expiry\\\":1629128079,\\\"last_token\\\":\\\"$2a$04$zrsr2F6m65pCbtL6RHxOE.OIbWOen3Iupm89VY/LXsQNhUqJIq6Jy\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:39Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:39.202581"], ["id", 3]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 209ms (Views: 0.2ms | ActiveRecord: 3.1ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:34:39 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$sDt4txETgG69BkkyGeyo0.jNKZAomaA.J/S2WgSSuuANdyMJnv2D."], ["email", "user@example.com"], ["created_at", "2021-08-02 15:34:39.425598"], ["updated_at", "2021-08-02 15:34:39.425598"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"trZR6M8WtGxI4__vvdr31Q\\\":{\\\"token\\\":\\\"$2a$04$/.ZGvtQlSTVa97Uvg6oatOleMWmzgrjCuo3l6x8CBgdqH0cZ.RAju\\\",\\\"expiry\\\":1629128079}}\""], ["updated_at", "2021-08-02 15:34:39.428711"], ["id", 4]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"trZR6M8WtGxI4__vvdr31Q\\\":{\\\"token\\\":\\\"$2a$04$mzGkFdlowNFj58D8vVUpeeGeWnEcPiQwydnHHZlTQWGGqXiVhvTCa\\\",\\\"expiry\\\":1629128079,\\\"last_token\\\":\\\"$2a$04$/.ZGvtQlSTVa97Uvg6oatOleMWmzgrjCuo3l6x8CBgdqH0cZ.RAju\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:39Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:39.433293"], ["id", 4]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 225ms (Views: 0.1ms | ActiveRecord: 2.9ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:34:39 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$9ViRp/VCIH9U.kCpjkG5RetSrieGp.5skIcZ/cTja1z/ooGqF0GZS"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:34:39.637695"], ["updated_at", "2021-08-02 15:34:39.637695"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"ptsR-2QsO9JIQ5WC5LlnlQ\\\":{\\\"token\\\":\\\"$2a$04$31dDUzkFu/AQvJlVwTpIk.O2gznKUbsBFl05zYldY/npNZUO94x9i\\\",\\\"expiry\\\":1629128079}}\""], ["updated_at", "2021-08-02 15:34:39.640621"], ["id", 5]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"ptsR-2QsO9JIQ5WC5LlnlQ\\\":{\\\"token\\\":\\\"$2a$04$ufWdGEMHZGTI92ZqpqlxHeioooMuwUKkYVbo5IzF11nxp3MgrlH0O\\\",\\\"expiry\\\":1629128079,\\\"last_token\\\":\\\"$2a$04$31dDUzkFu/AQvJlVwTpIk.O2gznKUbsBFl05zYldY/npNZUO94x9i\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:39Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:39.645929"], ["id", 5]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 208ms (Views: 0.1ms | ActiveRecord: 2.9ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:34:39 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$947lF/xZdAVudQzH9yy4RuEcQvekpif7mTC42Jn3JE1ad9Uz6NTU6"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:34:39.848695"], ["updated_at", "2021-08-02 15:34:39.848695"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"Dgkl4KP5B9kCuwrboFdAuw\\\":{\\\"token\\\":\\\"$2a$04$d50g7ZjKxJRUxQ9NG6Uz5OBxfp2WrPMZarHEsbEEnHyzIqLhfKp2a\\\",\\\"expiry\\\":1629128079}}\""], ["updated_at", "2021-08-02 15:34:39.851675"], ["id", 6]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"Dgkl4KP5B9kCuwrboFdAuw\\\":{\\\"token\\\":\\\"$2a$04$arEgpjqRKU3A97mLW13WZOQyhCeXA8L0LU2I16BWpmT8ZftQPjCfu\\\",\\\"expiry\\\":1629128079,\\\"last_token\\\":\\\"$2a$04$d50g7ZjKxJRUxQ9NG6Uz5OBxfp2WrPMZarHEsbEEnHyzIqLhfKp2a\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:39Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:39.857236"], ["id", 6]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 207ms (Views: 0.3ms | ActiveRecord: 3.4ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:34:39 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$zOCUnroDmOApnxx6zcwdRO5owKv/2jypXg7UlYMFxO5EU29MO5DUG"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:34:40.062685"], ["updated_at", "2021-08-02 15:34:40.062685"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"g2XnR5fYbVJw1qeikcvqdQ\\\":{\\\"token\\\":\\\"$2a$04$fnrH6ikhV.HL5bIR70WnxuavXsGzOtyqyMh2fu/d.slcScRBvDDAS\\\",\\\"expiry\\\":1629128080}}\""], ["updated_at", "2021-08-02 15:34:40.065695"], ["id", 7]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"g2XnR5fYbVJw1qeikcvqdQ\\\":{\\\"token\\\":\\\"$2a$04$F2fVQN35TkuodlKARnl9XeyHAyio37cdQ/8y7D8i2d7AvKHQAXzQ.\\\",\\\"expiry\\\":1629128080,\\\"last_token\\\":\\\"$2a$04$fnrH6ikhV.HL5bIR70WnxuavXsGzOtyqyMh2fu/d.slcScRBvDDAS\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:40Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:40.071132"], ["id", 7]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 208ms (Views: 0.2ms | ActiveRecord: 3.1ms | Allocations: 3447)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:34:40 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "test@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "test@example.com"], ["encrypted_password", "$2a$12$golIDaNB7/fE4yXYgUgcAOwhRQ9qvPIR7qk0SDI.2U1my0bkgXm6C"], ["email", "test@example.com"], ["created_at", "2021-08-02 15:34:40.274662"], ["updated_at", "2021-08-02 15:34:40.274662"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"TOCEflxVnXpH7PWwJzIuoA\\\":{\\\"token\\\":\\\"$2a$04$zZLVtWCULkEX5nW313RsxuRcExCuC3qXjWFY1uTuDVOQLMaE.hoTK\\\",\\\"expiry\\\":1629128080}}\""], ["updated_at", "2021-08-02 15:34:40.277841"], ["id", 8]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"TOCEflxVnXpH7PWwJzIuoA\\\":{\\\"token\\\":\\\"$2a$04$FBPJ6C24nPNFGZF9M/9aWeZgXm5r8EEC228YrpStUZCYgnsNnd88G\\\",\\\"expiry\\\":1629128080,\\\"last_token\\\":\\\"$2a$04$zZLVtWCULkEX5nW313RsxuRcExCuC3qXjWFY1uTuDVOQLMaE.hoTK\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:40Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:40.283274"], ["id", 8]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 207ms (Views: 0.2ms | ActiveRecord: 3.0ms | Allocations: 3417)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:34:40 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+Filter chain halted as :validate_sign_up_params rendered or redirected
+Completed 422 Unprocessable Entity in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 207)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "milan@hickle-okeefe.org"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "milan@hickle-okeefe.org"], ["encrypted_password", "$2a$12$tBWd.D48mAU.Y3QSoDwIk.TxRvcnmobgY4pxDvCm0vg4UCirveFOa"], ["email", "milan@hickle-okeefe.org"], ["created_at", "2021-08-02 15:34:40.503100"], ["updated_at", "2021-08-02 15:34:40.503100"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:34:40 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"milan@hickle-okeefe.org", "password"=>"[FILTERED]", "session"=>{"email"=>"milan@hickle-okeefe.org", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "milan@hickle-okeefe.org"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"SFj3oBmoq6MYGC_34fuY4A\\\":{\\\"token\\\":\\\"$2a$04$0te3aGTqgbKbEZhFFTaZBeecqRtFhJBJ1ozeUZ6L1pwx9q33K5hn.\\\",\\\"expiry\\\":1629128080}}\""], ["updated_at", "2021-08-02 15:34:40.714210"], ["id", 9]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:34:40.716316"], ["last_sign_in_at", "2021-08-02 15:34:40.716316"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:34:40.716594"], ["id", 9]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"SFj3oBmoq6MYGC_34fuY4A\\\":{\\\"token\\\":\\\"$2a$04$Ydu6QfN/UEnN9Bva/d0dY.NnG5OrmswRT.nGpOVBpjHKbfJFAKk7G\\\",\\\"expiry\\\":1629128080,\\\"last_token\\\":\\\"$2a$04$0te3aGTqgbKbEZhFFTaZBeecqRtFhJBJ1ozeUZ6L1pwx9q33K5hn.\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:40Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:40.724200"], ["id", 9]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 218ms (Views: 0.1ms | ActiveRecord: 3.5ms | Allocations: 3818)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "rob@trantow.org"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "rob@trantow.org"], ["encrypted_password", "$2a$12$3pVFBlDTmxIdwmZV77WssuRis93IuXFEenOQR.H0t1eTaJXMpgusC"], ["email", "rob@trantow.org"], ["created_at", "2021-08-02 15:34:40.931974"], ["updated_at", "2021-08-02 15:34:40.931974"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:34:40 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"rob@trantow.org", "password"=>"[FILTERED]", "session"=>{"email"=>"rob@trantow.org", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "rob@trantow.org"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"K37VsRizT_LokcSlUfJdOA\\\":{\\\"token\\\":\\\"$2a$04$brFK4lV8G2XOsmeUZwcQ.O4ZkxvunGBwojkAM/ZJeLAeogAqUW57K\\\",\\\"expiry\\\":1629128081}}\""], ["updated_at", "2021-08-02 15:34:41.137695"], ["id", 10]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:34:41.139553"], ["last_sign_in_at", "2021-08-02 15:34:41.139553"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:34:41.139807"], ["id", 10]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"K37VsRizT_LokcSlUfJdOA\\\":{\\\"token\\\":\\\"$2a$04$IsTYNVUolINK8i1cRnbzGOQWR0F.VlkiJSeCzlc4CjRfrBwIm6zjq\\\",\\\"expiry\\\":1629128081,\\\"last_token\\\":\\\"$2a$04$brFK4lV8G2XOsmeUZwcQ.O4ZkxvunGBwojkAM/ZJeLAeogAqUW57K\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:41Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:41.145630"], ["id", 10]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 210ms (Views: 0.1ms | ActiveRecord: 2.8ms | Allocations: 3589)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "theodore_green@kessler.info"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "theodore_green@kessler.info"], ["encrypted_password", "$2a$12$agAVcS04TR.V0Jm9vpOK5ObZHVw132H.v/CNHiq7cmHLjsfE/VJc2"], ["email", "theodore_green@kessler.info"], ["created_at", "2021-08-02 15:34:41.352263"], ["updated_at", "2021-08-02 15:34:41.352263"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:34:41 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"theodore_green@kessler.info", "password"=>"[FILTERED]", "session"=>{"email"=>"theodore_green@kessler.info", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "theodore_green@kessler.info"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"Fh9JDewGv4R1ZVOJQWGlPw\\\":{\\\"token\\\":\\\"$2a$04$eLMHAQOfBqx39QRpXt8JPOYMEu9CJI3HLCUY4GbwwvWr7l05aqI9C\\\",\\\"expiry\\\":1629128081}}\""], ["updated_at", "2021-08-02 15:34:41.554250"], ["id", 11]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:34:41.556122"], ["last_sign_in_at", "2021-08-02 15:34:41.556122"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:34:41.556431"], ["id", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"Fh9JDewGv4R1ZVOJQWGlPw\\\":{\\\"token\\\":\\\"$2a$04$oH5NxSM5Ml0Db0C3OFH9NOqULRANWxjpsJYnmAfYEki3gYqLoJ3Ly\\\",\\\"expiry\\\":1629128081,\\\"last_token\\\":\\\"$2a$04$eLMHAQOfBqx39QRpXt8JPOYMEu9CJI3HLCUY4GbwwvWr7l05aqI9C\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:41Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:41.562694"], ["id", 11]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 208ms (Views: 0.1ms | ActiveRecord: 3.5ms | Allocations: 3594)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "landon.okeefe@crooks.name"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "landon.okeefe@crooks.name"], ["encrypted_password", "$2a$12$dQGYqE0MxjVutjaJYhSUguUHUfFYyiYmMUUGzTcGR2STYfVST/0lW"], ["email", "landon.okeefe@crooks.name"], ["created_at", "2021-08-02 15:34:41.770990"], ["updated_at", "2021-08-02 15:34:41.770990"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:34:41 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"landon.okeefe@crooks.name", "password"=>"[FILTERED]", "session"=>{"email"=>"landon.okeefe@crooks.name", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "landon.okeefe@crooks.name"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"fXtJhfboMKtLJbYlZkLe8g\\\":{\\\"token\\\":\\\"$2a$04$L7m8BBdvLAMIMm52JA5eJeSbEVQioEpUn6bg.VFHyQX2g0W8YDFo.\\\",\\\"expiry\\\":1629128081}}\""], ["updated_at", "2021-08-02 15:34:41.969150"], ["id", 12]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:34:41.971597"], ["last_sign_in_at", "2021-08-02 15:34:41.971597"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:34:41.971910"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"fXtJhfboMKtLJbYlZkLe8g\\\":{\\\"token\\\":\\\"$2a$04$DaYGiF1h6bKW9mycxXloC.w/7AD.CGyjXQYJ1VW5NkJ4m8l5.yMUC\\\",\\\"expiry\\\":1629128081,\\\"last_token\\\":\\\"$2a$04$L7m8BBdvLAMIMm52JA5eJeSbEVQioEpUn6bg.VFHyQX2g0W8YDFo.\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:41Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:41.978758"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 204ms (Views: 0.2ms | ActiveRecord: 3.2ms | Allocations: 3594)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "brandie.smith@jakubowski.name"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "brandie.smith@jakubowski.name"], ["encrypted_password", "$2a$12$RhNsqqaeWpVZmzVjwp0HxOiGnNkWNX.pemqL3cnWZZIkzX3zMzXfq"], ["email", "brandie.smith@jakubowski.name"], ["created_at", "2021-08-02 15:34:42.180667"], ["updated_at", "2021-08-02 15:34:42.180667"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:34:42 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"brandie.smith@jakubowski.name", "password"=>"[FILTERED]", "session"=>{"email"=>"brandie.smith@jakubowski.name", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "brandie.smith@jakubowski.name"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"IeUPJtbG6G2xsXB0vun8uw\\\":{\\\"token\\\":\\\"$2a$04$BeXFULp931pNfBiMWl34BuxaWdOXL3o8tc6TEunp/omOfLCnDJFlu\\\",\\\"expiry\\\":1629128082}}\""], ["updated_at", "2021-08-02 15:34:42.377662"], ["id", 13]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:34:42.380351"], ["last_sign_in_at", "2021-08-02 15:34:42.380351"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:34:42.380686"], ["id", 13]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"IeUPJtbG6G2xsXB0vun8uw\\\":{\\\"token\\\":\\\"$2a$04$mm7TSUZlqQmKTe1/xeJpLOR68jbpuS6mfBnDKoK0jt.HkJbXsMOgm\\\",\\\"expiry\\\":1629128082,\\\"last_token\\\":\\\"$2a$04$BeXFULp931pNfBiMWl34BuxaWdOXL3o8tc6TEunp/omOfLCnDJFlu\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:42Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:42.387607"], ["id", 13]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 203ms (Views: 0.2ms | ActiveRecord: 3.7ms | Allocations: 3594)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "preston.tromp@gutmann.info"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "preston.tromp@gutmann.info"], ["encrypted_password", "$2a$12$y/Pk8/hFSRrMviKLjQ6yvukFT2pM3KYx.qh6Cq/rcpHdfaBjA95Hy"], ["email", "preston.tromp@gutmann.info"], ["created_at", "2021-08-02 15:34:42.591171"], ["updated_at", "2021-08-02 15:34:42.591171"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:34:42 +0300
+Processing by DeviseTokenAuth::SessionsController#create as HTML
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 205)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "elvin.stark@mclaughlin.net"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "elvin.stark@mclaughlin.net"], ["encrypted_password", "$2a$12$oVT3lwXee8nrAO/0jxITJutL8cXjZPnFO/KrDBGYKmX3AwInXLsra"], ["email", "elvin.stark@mclaughlin.net"], ["created_at", "2021-08-02 15:34:42.797590"], ["updated_at", "2021-08-02 15:34:42.797590"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:34:42 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"elvin.stark@mclaughlin.net", "password"=>"[FILTERED]", "session"=>{"email"=>"elvin.stark@mclaughlin.net", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "elvin.stark@mclaughlin.net"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"zOGduca0WbLDP7nXC2o7zA\\\":{\\\"token\\\":\\\"$2a$04$qhUxPysVkF6RH0sFesE0FOClJsknFnp6qQTJ.Q9eo4Ogn0d1RLExq\\\",\\\"expiry\\\":1629128082}}\""], ["updated_at", "2021-08-02 15:34:42.995638"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:34:42.998271"], ["last_sign_in_at", "2021-08-02 15:34:42.998271"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:34:42.998658"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"zOGduca0WbLDP7nXC2o7zA\\\":{\\\"token\\\":\\\"$2a$04$bjOEufgXtBLYYZasJ9I2Q.RNiCDg6nTNDAS0MrDpStx9ksqWhUFGu\\\",\\\"expiry\\\":1629128083,\\\"last_token\\\":\\\"$2a$04$qhUxPysVkF6RH0sFesE0FOClJsknFnp6qQTJ.Q9eo4Ogn0d1RLExq\\\",\\\"updated_at\\\":\\\"2021-08-02T15:34:43Z\\\"}}\""], ["updated_at", "2021-08-02 15:34:43.004942"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 204ms (Views: 0.2ms | ActiveRecord: 3.4ms | Allocations: 3594)
+Started DELETE "/api/v1/auth/sign_out" for 127.0.0.1 at 2021-08-02 18:34:43 +0300
+Processing by DeviseTokenAuth::SessionsController#destroy as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "elvin.stark@mclaughlin.net"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", nil], ["updated_at", "2021-08-02 15:34:43.013549"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.9ms | Allocations: 1269)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.9ms)[0m  [1m[34m            SELECT schemaname || '.' || tablename
+            FROM pg_tables
+            WHERE
+              tablename !~ '_prt_' AND
+              tablename <> 'schema_migrations'
+  AND tablename <> 'ar_internal_metadata'
+ AND
+              schemaname = ANY (current_schemas(false))
+[0m
+  [1m[35m (1.0ms)[0m  [1m[34mselect table_name from information_schema.views where table_schema = 'authgit_test'[0m
+  [1m[35m (16.0ms)[0m  [1m[35mTRUNCATE TABLE "users" RESTART IDENTITY RESTRICT;[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:48:32 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$devu.CAGv2Mv/3MuItIzfeDQkCQu6zTqFq0sbNg.Ai4isRcjEONBu"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:48:32.820020"], ["updated_at", "2021-08-02 15:48:32.820020"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"VtibqQnKfzFGhFPXdrLtEQ\\\":{\\\"token\\\":\\\"$2a$04$8Qa7JY57Afsh5QlT21bz5OgObXkEL0gdnOTxY9gbF9pnjDV.EnONS\\\",\\\"expiry\\\":1629128912}}\""], ["updated_at", "2021-08-02 15:48:32.823694"], ["id", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"VtibqQnKfzFGhFPXdrLtEQ\\\":{\\\"token\\\":\\\"$2a$04$X0DD8L5lVmf4JTfOMc5.7OQsAaBheXYNvKZpItLBCf4wY/R8VdOeK\\\",\\\"expiry\\\":1629128912,\\\"last_token\\\":\\\"$2a$04$8Qa7JY57Afsh5QlT21bz5OgObXkEL0gdnOTxY9gbF9pnjDV.EnONS\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:32Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:32.830115"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 360ms (Views: 0.2ms | ActiveRecord: 10.7ms | Allocations: 368936)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:48:32 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$bnmQnoW3BJfsbFz.G/TPG.1Z.OR8hWI5TE9e/ZLP61AJ3BbkQ7hni"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:48:33.033163"], ["updated_at", "2021-08-02 15:48:33.033163"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"xCdk-scqUgR5laTBDHJ9WA\\\":{\\\"token\\\":\\\"$2a$04$46HBykqcTDdtVVlYouoZvuVIzZd9rElhgflBYO0.Ctc4oEFWuiIKC\\\",\\\"expiry\\\":1629128913}}\""], ["updated_at", "2021-08-02 15:48:33.036109"], ["id", 2]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"xCdk-scqUgR5laTBDHJ9WA\\\":{\\\"token\\\":\\\"$2a$04$GQr2JqPu7ha45bftwOwgku.3c3ElRUfmqsZXAnLD5.G45E/ICyXka\\\",\\\"expiry\\\":1629128913,\\\"last_token\\\":\\\"$2a$04$46HBykqcTDdtVVlYouoZvuVIzZd9rElhgflBYO0.Ctc4oEFWuiIKC\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:33Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:33.041684"], ["id", 2]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 206ms (Views: 0.1ms | ActiveRecord: 2.8ms | Allocations: 3449)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:48:33 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$SIQiAZlDHnUcwmJ2o2536OKjwnmt5Rch73A9xZstZNacuwiDsZ2ke"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:48:33.241166"], ["updated_at", "2021-08-02 15:48:33.241166"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"Pk1ugnOq90hw-rUQpdBRsQ\\\":{\\\"token\\\":\\\"$2a$04$.pjAGSHrnVDe9a7Gpq3pzOlTRLyWssJZLIUxPHfbMC7r121Tfzoqi\\\",\\\"expiry\\\":1629128913}}\""], ["updated_at", "2021-08-02 15:48:33.244134"], ["id", 3]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"Pk1ugnOq90hw-rUQpdBRsQ\\\":{\\\"token\\\":\\\"$2a$04$qBECctULAwrWD9JfqNAZluoaXbB8MfEsSzAPU6w4t9pI6E9b49TMO\\\",\\\"expiry\\\":1629128913,\\\"last_token\\\":\\\"$2a$04$.pjAGSHrnVDe9a7Gpq3pzOlTRLyWssJZLIUxPHfbMC7r121Tfzoqi\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:33Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:33.249919"], ["id", 3]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 203ms (Views: 0.2ms | ActiveRecord: 3.5ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:48:33 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$Q5h9SF3afGpWaH6kfnCsRuwiqr7gn0RTIPI5mJ4iD3Xw6eRqalYiO"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:48:33.456493"], ["updated_at", "2021-08-02 15:48:33.456493"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"EG1QXebZpO2MzLeX7CDQMQ\\\":{\\\"token\\\":\\\"$2a$04$uRU58Y1wAVVkG3V39Pvo5eVVvbRmkZwRdYlkUc06wQQ5GcGh5xyn2\\\",\\\"expiry\\\":1629128913}}\""], ["updated_at", "2021-08-02 15:48:33.459216"], ["id", 4]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"EG1QXebZpO2MzLeX7CDQMQ\\\":{\\\"token\\\":\\\"$2a$04$mZInc8KD1KnO2vjFeQrvKeiCpinT.yBwqHLJIKSPsIKiyxbkhtZgS\\\",\\\"expiry\\\":1629128913,\\\"last_token\\\":\\\"$2a$04$uRU58Y1wAVVkG3V39Pvo5eVVvbRmkZwRdYlkUc06wQQ5GcGh5xyn2\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:33Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:33.464737"], ["id", 4]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 206ms (Views: 0.1ms | ActiveRecord: 3.2ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:48:33 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$l5dJT3QBozDy7/Ph50uExOD3zXAaJ.ugCv1mjPsMDJL2mIIbip7tO"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:48:33.665831"], ["updated_at", "2021-08-02 15:48:33.665831"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"zV9G-pS-kkiI_OZLrKIoxA\\\":{\\\"token\\\":\\\"$2a$04$DC2EKBg1edZVuOeQu2HH1urlQRjZUEVm7x0tsenGnhp.Hyrx3YfKW\\\",\\\"expiry\\\":1629128913}}\""], ["updated_at", "2021-08-02 15:48:33.668839"], ["id", 5]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"zV9G-pS-kkiI_OZLrKIoxA\\\":{\\\"token\\\":\\\"$2a$04$rZME/TBmRH9D8KUlZzE.3OrfUKDin/My38t5iFStDmiPXt1ui1JWe\\\",\\\"expiry\\\":1629128913,\\\"last_token\\\":\\\"$2a$04$DC2EKBg1edZVuOeQu2HH1urlQRjZUEVm7x0tsenGnhp.Hyrx3YfKW\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:33Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:33.675011"], ["id", 5]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 205ms (Views: 0.2ms | ActiveRecord: 4.4ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:48:33 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$7Q7KFyD3tIGwRBhlRLmbnuUExmhyCXpY6x68Czid389XWKOSqOwUu"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:48:33.877154"], ["updated_at", "2021-08-02 15:48:33.877154"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"UQXujpDCV5tsYY9PKkZRcg\\\":{\\\"token\\\":\\\"$2a$04$CYzJTVcYDhbn3ExaVLq1YeMBkogDUDjlDZC/OA.u813/yk9XxESdG\\\",\\\"expiry\\\":1629128913}}\""], ["updated_at", "2021-08-02 15:48:33.879939"], ["id", 6]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"UQXujpDCV5tsYY9PKkZRcg\\\":{\\\"token\\\":\\\"$2a$04$yD5XzRyvvrF501jDSYCudeuc4DXMW2fxFJyJEU3YzzLuSx.iINj/y\\\",\\\"expiry\\\":1629128913,\\\"last_token\\\":\\\"$2a$04$CYzJTVcYDhbn3ExaVLq1YeMBkogDUDjlDZC/OA.u813/yk9XxESdG\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:33Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:33.885802"], ["id", 6]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 204ms (Views: 0.1ms | ActiveRecord: 3.2ms | Allocations: 3447)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:48:33 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"user@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "user@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "user@example.com"], ["encrypted_password", "$2a$12$0Z.eO0SiZyLoZiD/SVnuI.5QQEJzvfQi2tNasQ6AWDFEc3liSkO9u"], ["email", "user@example.com"], ["created_at", "2021-08-02 15:48:34.094245"], ["updated_at", "2021-08-02 15:48:34.094245"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"qkTzvCn88FmzavXFK171lw\\\":{\\\"token\\\":\\\"$2a$04$KbbYndKIzifzo/nizAK4X.vvTwsvBGg98TUI9SuZM9cn2O.7ZyyAa\\\",\\\"expiry\\\":1629128914}}\""], ["updated_at", "2021-08-02 15:48:34.101140"], ["id", 7]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"qkTzvCn88FmzavXFK171lw\\\":{\\\"token\\\":\\\"$2a$04$zHIgfWXsDX8V5oCMs/EMAuwauMuhfcux9hKuh8QPlJfgiIG9g9xDS\\\",\\\"expiry\\\":1629128914,\\\"last_token\\\":\\\"$2a$04$KbbYndKIzifzo/nizAK4X.vvTwsvBGg98TUI9SuZM9cn2O.7ZyyAa\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:34Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:34.107578"], ["id", 7]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 218ms (Views: 0.2ms | ActiveRecord: 4.4ms | Allocations: 3447)
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:48:34 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "test@example.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "test@example.com"], ["encrypted_password", "$2a$12$vAUM1CRiGIbRwIc4AANbROU6IbxPV/Au.lLPMu0kmY3y7TQnZTKXa"], ["email", "test@example.com"], ["created_at", "2021-08-02 15:48:34.307967"], ["updated_at", "2021-08-02 15:48:34.307967"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"993-aPlNcOOZXyn29G2hcA\\\":{\\\"token\\\":\\\"$2a$04$HYaAMu2RAzbDJXTZBIGnouQlvPB35XeGOak9HFCnH.auAnDzOIlve\\\",\\\"expiry\\\":1629128914}}\""], ["updated_at", "2021-08-02 15:48:34.311098"], ["id", 8]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"993-aPlNcOOZXyn29G2hcA\\\":{\\\"token\\\":\\\"$2a$04$cpWknklscVg56fFAVpgcQOhVtDFrSsbYV.ersGC6O/FEaya/GJ3y2\\\",\\\"expiry\\\":1629128914,\\\"last_token\\\":\\\"$2a$04$HYaAMu2RAzbDJXTZBIGnouQlvPB35XeGOak9HFCnH.auAnDzOIlve\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:34Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:34.317219"], ["id", 8]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 204ms (Views: 0.1ms | ActiveRecord: 4.4ms | Allocations: 3417)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started POST "/api/v1/auth/" for 127.0.0.1 at 2021-08-02 18:48:34 +0300
+Processing by DeviseTokenAuth::RegistrationsController#create as HTML
+Filter chain halted as :validate_sign_up_params rendered or redirected
+Completed 422 Unprocessable Entity in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 207)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "clyde.swaniawski@zemlak-parisian.io"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "clyde.swaniawski@zemlak-parisian.io"], ["encrypted_password", "$2a$12$nn/JZHlPcdOGjrc/Bm7LdebqjZ29TCh7ywWJOxE/iV8aMtttReZ/."], ["email", "clyde.swaniawski@zemlak-parisian.io"], ["created_at", "2021-08-02 15:48:34.526890"], ["updated_at", "2021-08-02 15:48:34.526890"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:48:34 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"clyde.swaniawski@zemlak-parisian.io", "password"=>"[FILTERED]", "session"=>{"email"=>"clyde.swaniawski@zemlak-parisian.io", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "clyde.swaniawski@zemlak-parisian.io"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"n4FpVdfCS3SLSoW0HmUctg\\\":{\\\"token\\\":\\\"$2a$04$bKu8H130KZt70hsfD3aiNuBAGsM8lFztPPxWdpg5BtKswyMF7kCxO\\\",\\\"expiry\\\":1629128914}}\""], ["updated_at", "2021-08-02 15:48:34.733392"], ["id", 9]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:48:34.735416"], ["last_sign_in_at", "2021-08-02 15:48:34.735416"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:48:34.735690"], ["id", 9]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"n4FpVdfCS3SLSoW0HmUctg\\\":{\\\"token\\\":\\\"$2a$04$JiibgriLNiTIdUAKYFHK5uegrSZs987k6QWBQmZX7UWKhX3VYI5lC\\\",\\\"expiry\\\":1629128914,\\\"last_token\\\":\\\"$2a$04$bKu8H130KZt70hsfD3aiNuBAGsM8lFztPPxWdpg5BtKswyMF7kCxO\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:34Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:34.741863"], ["id", 9]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 211ms (Views: 0.1ms | ActiveRecord: 3.0ms | Allocations: 3823)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "nelda.stoltenberg@hilpert-predovic.com"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "nelda.stoltenberg@hilpert-predovic.com"], ["encrypted_password", "$2a$12$NLBIycYgc4OJ0VEkTpVbpuEquiSUnzi4U8D0S3Rz0TCMp2QuwADwa"], ["email", "nelda.stoltenberg@hilpert-predovic.com"], ["created_at", "2021-08-02 15:48:34.944771"], ["updated_at", "2021-08-02 15:48:34.944771"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:48:34 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"nelda.stoltenberg@hilpert-predovic.com", "password"=>"[FILTERED]", "session"=>{"email"=>"nelda.stoltenberg@hilpert-predovic.com", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "nelda.stoltenberg@hilpert-predovic.com"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"pPH-Pc3eqjKy1SaKeOXYeA\\\":{\\\"token\\\":\\\"$2a$04$NzVHtp8fMzfEA7UPDf1.cuer7X/aGo0Be5Kz26txsGBTjeRpXtARW\\\",\\\"expiry\\\":1629128915}}\""], ["updated_at", "2021-08-02 15:48:35.143482"], ["id", 10]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:48:35.145393"], ["last_sign_in_at", "2021-08-02 15:48:35.145393"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:48:35.145689"], ["id", 10]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"pPH-Pc3eqjKy1SaKeOXYeA\\\":{\\\"token\\\":\\\"$2a$04$vSGaXya8kxmT3edohGehh.ZrqI8LJ/qNs1ZM1W7WdJYBNtU1HwGQq\\\",\\\"expiry\\\":1629128915,\\\"last_token\\\":\\\"$2a$04$NzVHtp8fMzfEA7UPDf1.cuer7X/aGo0Be5Kz26txsGBTjeRpXtARW\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:35Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:35.151553"], ["id", 10]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 204ms (Views: 0.1ms | ActiveRecord: 3.1ms | Allocations: 3594)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "marylin.oberbrunner@huels-stehr.name"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "marylin.oberbrunner@huels-stehr.name"], ["encrypted_password", "$2a$12$FbpQDA7EQbv4ctXlRser1e6Faq.KU2ReWRFpX/bf8ljbSLD4gAAhO"], ["email", "marylin.oberbrunner@huels-stehr.name"], ["created_at", "2021-08-02 15:48:35.353764"], ["updated_at", "2021-08-02 15:48:35.353764"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:48:35 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"marylin.oberbrunner@huels-stehr.name", "password"=>"[FILTERED]", "session"=>{"email"=>"marylin.oberbrunner@huels-stehr.name", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "marylin.oberbrunner@huels-stehr.name"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"iX-cEvTmHDMW_oOvc375Tw\\\":{\\\"token\\\":\\\"$2a$04$SvCAM/jflR/ApfKZ9fzGm.yHMwsR0nQ8nUUV2cojO7d9QEpYa4EkS\\\",\\\"expiry\\\":1629128915}}\""], ["updated_at", "2021-08-02 15:48:35.551961"], ["id", 11]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:48:35.553846"], ["last_sign_in_at", "2021-08-02 15:48:35.553846"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:48:35.554141"], ["id", 11]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"iX-cEvTmHDMW_oOvc375Tw\\\":{\\\"token\\\":\\\"$2a$04$yjdoraq1RzDqeO4Z8rwwM.5vmHRDQOZscvW/KjKmv9MAZlmDIxIn6\\\",\\\"expiry\\\":1629128915,\\\"last_token\\\":\\\"$2a$04$SvCAM/jflR/ApfKZ9fzGm.yHMwsR0nQ8nUUV2cojO7d9QEpYa4EkS\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:35Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:35.560025"], ["id", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 203ms (Views: 0.1ms | ActiveRecord: 2.8ms | Allocations: 3594)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "stepanie@weber.co"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "stepanie@weber.co"], ["encrypted_password", "$2a$12$8lg/l0M8KJWSt06q4RZ.5e/kr8lOzq1zzoKIWSFS0glR283tEAaW2"], ["email", "stepanie@weber.co"], ["created_at", "2021-08-02 15:48:35.761979"], ["updated_at", "2021-08-02 15:48:35.761979"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:48:35 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"stepanie@weber.co", "password"=>"[FILTERED]", "session"=>{"email"=>"stepanie@weber.co", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "stepanie@weber.co"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"mpyhJbwouHByb4EcFf0rrA\\\":{\\\"token\\\":\\\"$2a$04$pL.L6Ssq22gvHA8QCfqkO.PBM2B8/h7wbecIDxOWwH1LGEDtIDzV6\\\",\\\"expiry\\\":1629128915}}\""], ["updated_at", "2021-08-02 15:48:35.960578"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:48:35.962271"], ["last_sign_in_at", "2021-08-02 15:48:35.962271"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:48:35.962558"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"mpyhJbwouHByb4EcFf0rrA\\\":{\\\"token\\\":\\\"$2a$04$mUzG6yvSAMVJ/WP6hrAVse.vPUlOBReYzKeJ2KScgT/Vh/HHjKsVe\\\",\\\"expiry\\\":1629128915,\\\"last_token\\\":\\\"$2a$04$pL.L6Ssq22gvHA8QCfqkO.PBM2B8/h7wbecIDxOWwH1LGEDtIDzV6\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:35Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:35.968496"], ["id", 12]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 204ms (Views: 0.2ms | ActiveRecord: 2.6ms | Allocations: 3589)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "tyesha@emard.io"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "tyesha@emard.io"], ["encrypted_password", "$2a$12$lGMr97KyvfvmcE9lGWdqFeenU3EgLWpbl19SINbk0XXpt5L1ynaaC"], ["email", "tyesha@emard.io"], ["created_at", "2021-08-02 15:48:36.171603"], ["updated_at", "2021-08-02 15:48:36.171603"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:48:36 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"tyesha@emard.io", "password"=>"[FILTERED]", "session"=>{"email"=>"tyesha@emard.io", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "tyesha@emard.io"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"4KrAd8jegPToIT3AwMHjCw\\\":{\\\"token\\\":\\\"$2a$04$sl3.xQCJNK/wLjX5X0dCve6zCJ8eu3yVB.rAlEIZ6ZCH4JdDRpFYy\\\",\\\"expiry\\\":1629128916}}\""], ["updated_at", "2021-08-02 15:48:36.372241"], ["id", 13]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:48:36.374069"], ["last_sign_in_at", "2021-08-02 15:48:36.374069"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:48:36.374409"], ["id", 13]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"4KrAd8jegPToIT3AwMHjCw\\\":{\\\"token\\\":\\\"$2a$04$ljUSY.qjs/qXo3kSMFl.vejmrqvHNOBuejboO/3qCv/qtjSZc4/GS\\\",\\\"expiry\\\":1629128916,\\\"last_token\\\":\\\"$2a$04$sl3.xQCJNK/wLjX5X0dCve6zCJ8eu3yVB.rAlEIZ6ZCH4JdDRpFYy\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:36Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:36.380363"], ["id", 13]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 206ms (Views: 0.1ms | ActiveRecord: 2.6ms | Allocations: 3589)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "tiana_witting@labadie-rempel.net"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "tiana_witting@labadie-rempel.net"], ["encrypted_password", "$2a$12$10fC3IZKm8SNBhYtzVVng.3K1E2mnVfpfg40s5vKBPlakYHDqV16S"], ["email", "tiana_witting@labadie-rempel.net"], ["created_at", "2021-08-02 15:48:36.584052"], ["updated_at", "2021-08-02 15:48:36.584052"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:48:36 +0300
+Processing by DeviseTokenAuth::SessionsController#create as HTML
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 205)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND "users"."provider" = $2 LIMIT $3[0m  [["email", "frank_brakus@toy.co"], ["provider", "email"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["uid", "frank_brakus@toy.co"], ["encrypted_password", "$2a$12$xH/eggE.UgjOCkXgcUgBduNU6NjsZ4LXXJiuJEEgzQob4oFPwovD2"], ["email", "frank_brakus@toy.co"], ["created_at", "2021-08-02 15:48:36.788565"], ["updated_at", "2021-08-02 15:48:36.788565"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Started POST "/api/v1/auth/sign_in" for 127.0.0.1 at 2021-08-02 18:48:36 +0300
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"frank_brakus@toy.co", "password"=>"[FILTERED]", "session"=>{"email"=>"frank_brakus@toy.co", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["email", "frank_brakus@toy.co"], ["provider", "email"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :session[0m
+[31mUnpermitted parameter: :session[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"02rVm8zx_Zlch7VtmP-WMA\\\":{\\\"token\\\":\\\"$2a$04$EVcOxN1lKudP7eH5PL7RW.uE9rGjxn2xHJhCyX4NKFGxaP6VPYGg.\\\",\\\"expiry\\\":1629128916}}\""], ["updated_at", "2021-08-02 15:48:36.984405"], ["id", 15]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-08-02 15:48:36.986714"], ["last_sign_in_at", "2021-08-02 15:48:36.986714"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["updated_at", "2021-08-02 15:48:36.987010"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[37mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"02rVm8zx_Zlch7VtmP-WMA\\\":{\\\"token\\\":\\\"$2a$04$Hr0tB86zTGqmGyBiwUEbxes/1A2GwkX4LvWY1JXDpYbew.IiCRUxC\\\",\\\"expiry\\\":1629128916,\\\"last_token\\\":\\\"$2a$04$EVcOxN1lKudP7eH5PL7RW.uE9rGjxn2xHJhCyX4NKFGxaP6VPYGg.\\\",\\\"updated_at\\\":\\\"2021-08-02T15:48:36Z\\\"}}\""], ["updated_at", "2021-08-02 15:48:36.993482"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 202ms (Views: 0.2ms | ActiveRecord: 2.9ms | Allocations: 3589)
+Started DELETE "/api/v1/auth/sign_out" for 127.0.0.1 at 2021-08-02 18:48:36 +0300
+Processing by DeviseTokenAuth::SessionsController#destroy as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "frank_brakus@toy.co"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_3[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", nil], ["updated_at", "2021-08-02 15:48:37.000993"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_3[0m
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.7ms | Allocations: 1267)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
