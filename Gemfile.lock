@@ -1,20 +1,4 @@
 GIT
-  remote: https://github.com/faker-ruby/faker.git
-  revision: 1a53fb2ca7a560f287b966aa117d353de827b191
-  branch: master
-  specs:
-    faker (2.18.0)
-      i18n (>= 1.6, < 2)
-
-GIT
-  remote: https://github.com/omniauth/omniauth-github.git
-  revision: 1f772263c6cc00e84dabbc02beb755ba4c95f7d1
-  specs:
-    omniauth-github (2.0.0)
-      omniauth (~> 2.0)
-      omniauth-oauth2 (~> 1.7.1)
-
-GIT
   remote: https://github.com/rspec/rspec-core.git
   revision: e7c5d030966a7e8dad3e0a67c61920c4f2437c15
   branch: master
@@ -154,6 +138,8 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
+    faker (2.18.0)
+      i18n (>= 1.6, < 2)
     faraday (1.6.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -213,6 +199,9 @@ GEM
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
       rack-protection
+    omniauth-github (2.0.0)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.7.1)
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
@@ -295,9 +284,9 @@ DEPENDENCIES
   database_cleaner
   devise_token_auth
   factory_bot_rails
-  faker!
+  faker
   listen (~> 3.3)
-  omniauth-github!
+  omniauth-github
   pg (~> 1.1)
   pry-rails
   puma (~> 5.0)

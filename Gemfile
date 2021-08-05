@@ -11,7 +11,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 
 
-gem 'omniauth-github', github: 'omniauth/omniauth-github'
+gem 'omniauth-github'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
@@ -55,6 +55,6 @@ group :development, :test do
 end
 group :test do
   gem 'factory_bot_rails'
-  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+  gem 'faker'
   gem 'database_cleaner'
 end
