@@ -1,6 +1,4 @@
 class Api::V1::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCallbacksController
-
-
   def omniauth_success
     auth_info = request.env['omniauth.auth']
     user = User.find_by(uid: auth_info.uid, provider: 'github')
