@@ -11,7 +11,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 
 
-gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
+gem 'omniauth-github', github: 'omniauth/omniauth-github'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
