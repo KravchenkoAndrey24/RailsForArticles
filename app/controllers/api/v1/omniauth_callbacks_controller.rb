@@ -24,7 +24,7 @@ class Api::V1::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCallbacksC
       uid: user.uid
     }
     secret_ui_token = Base64.encode64(ui_token.to_json)
-    redirect_to "https://shrouded-caverns-92109.herokuapp.com/login?token=#{secret_ui_token}"
+    redirect_to "https://cocky-kare-ad2c13.netlify.app/login?token=#{secret_ui_token}"
   end
 
 end
