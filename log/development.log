@@ -41824,3 +41824,394 @@ Processing by CurrentUsersController#me as HTML
 Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 103)
 
 
+Started GET "/me" for ::1 at 2021-08-06 12:59:45 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.6ms | Allocations: 2164)
+
+
+Started GET "/api/v1/auth/github" for ::1 at 2021-08-06 13:00:07 +0300
+Started GET "/omniauth/github?namespace_name=api&resource_class=User" for ::1 at 2021-08-06 13:00:07 +0300
+Started GET "/api/v1/auth/github/callback?code=9f02e4d8fc9e78ced2d6&state=87f3090c73e7bb920f6a423c06f00109746c6084670f6451" for ::1 at 2021-08-06 13:00:07 +0300
+Processing by Api::V1::OmniauthCallbacksController#omniauth_success as HTML
+  Parameters: {"code"=>"9f02e4d8fc9e78ced2d6", "state"=>"87f3090c73e7bb920f6a423c06f00109746c6084670f6451", "provider"=>"github"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["uid", "78046418"], ["provider", "github"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:6:in `omniauth_success'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+  [1m[36mUser Update (1.0ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"MZDBaSue8f8px3t2vClpZA\\\":{\\\"token\\\":\\\"$2a$10$ZkuKm.tzwKbEQuBjXMiPbOTHiPPyFPO8cF/azKno2Hpl2joECGwYy\\\",\\\"expiry\\\":1629283510},\\\"DOiQzROf1PLWsdMQjAMTNQ\\\":{\\\"token\\\":\\\"$2a$10$w/Fp7W57lTVrKQ5IrQnBj.MCxO4UUHO/4e9SrlOcuRrFkkVS3dUoq\\\",\\\"expiry\\\":1629283551},\\\"_D0XNWKrTO2kTrtpg-e5pw\\\":{\\\"token\\\":\\\"$2a$10$o5tcfZY1feXakl2RKjPnJext/A6QnjozeUCG1jekuZsJeYmFF6mrK\\\",\\\"expiry\\\":1629283609},\\\"ADlsQ65P8AJrKU8nt7JfKA\\\":{\\\"token\\\":\\\"$2a$10$rMNuWQxV3/XHeVp4Y9SpseYp3MSgP/.F9OUR9PkzniyOcaj92x.xK\\\",\\\"expiry\\\":1629283640},\\\"vam1FHk6H3Lw8EMEWsamsw\\\":{\\\"token\\\":\\\"$2a$10$8FtP/f3I0G1WzfHT0SgCsO3IjWMSt.QfDNRUPbZVB4uGafl9VTFMe\\\",\\\"expiry\\\":1629283687},\\\"coddCze6WBL_QLwKllLfbw\\\":{\\\"token\\\":\\\"$2a$10$sJIhH.wLqL7wQePIRChlFun7IPeLK/R8fRcP8NOMuFY5cqjSVcBGm\\\",\\\"expiry\\\":1629283718},\\\"NVb8PjN6toOi_5c41vkPeQ\\\":{\\\"token\\\":\\\"$2a$10$RfC9DZG/SjnqcZo0jTOobOMObcvKzZHYt4C29aLea5n5w7XVK2k96\\\",\\\"expiry\\\":1629300262},\\\"FGokueZpHOUA7Fb9zufsOg\\\":{\\\"token\\\":\\\"$2a$10$Kp0bpQluvuf89lFwMSdxbu2zH.yaxmfX4fpNdPY6xcSxqobuFgItO\\\",\\\"expiry\\\":1629300302},\\\"c8yjKsAj2omJ0elgshwTLg\\\":{\\\"token\\\":\\\"$2a$10$FGdRAFtxAdZwiX4P8ovIrellZ4/D/1hhEDq0uA74XMGb8dgaViR1a\\\",\\\"expiry\\\":1629300307},\\\"h49deKsnJac0SW9Lv0MJTg\\\":{\\\"token\\\":\\\"$2a$10$1/4qWPmLp.qhdpFT2XODTOPiI.AVJNQI7BPFbDzWGfauYWrHevK2C\\\",\\\"expiry\\\":1629300336},\\\"lGoCwixb2J4V_Yev3oJqDQ\\\":{\\\"token\\\":\\\"$2a$10$pMHUSeznkMqhZG6pu2q9CeubZP35AU330WADCVNTlWOcN0no1v.TK\\\",\\\"expiry\\\":1629365570},\\\"7dCWjy1OcyJgM6uZy0ItSQ\\\":{\\\"token\\\":\\\"$2a$10$.83zh73uowI5gncQ5N0flOjedEYVz5Iz./n/dTKBFRgq1UGcft34m\\\",\\\"expiry\\\":1629365781},\\\"_c9iI2NDsL4kJGkNnTFu5g\\\":{\\\"token\\\":\\\"$2a$10$4DALt7X/4ay0wfkWAY8Z2uZ4l169oQYA1af84eAVd4V3tq1CfiAXG\\\",\\\"expiry\\\":1629365783},\\\"1rs-H59Bpj9PUYMfEif1bw\\\":{\\\"token\\\":\\\"$2a$10$fPS4/JxO0eZWCjfe5mnCaO19DD1A/eKZ0jrCABQAYUcIc.w8A/xxS\\\",\\\"expiry\\\":1629372386},\\\"jxjtq5KLHfoR7Al8o8wdRg\\\":{\\\"token\\\":\\\"$2a$10$gQcb.kl/pFmHaJvx/WcNHuHR8xbRTUdBZ4c4vmwa.2MD0as55FJMy\\\",\\\"expiry\\\":1629372553},\\\"3eGijgW0Z_TRuFe-77yyfg\\\":{\\\"token\\\":\\\"$2a$10$LPVua9U.3ywxxH9o2FRfOO9VJAVdI9XCW3tvLxWWMZPdgWEoNjtte\\\",\\\"expiry\\\":1629372634},\\\"KP4T2wcya9V6aBBdPeTXhQ\\\":{\\\"token\\\":\\\"$2a$10$DoUKlrV.EivStg1.kNIte.ud1jg6Rxci6QHVoQaQf1BaOx0KPhy9C\\\",\\\"expiry\\\":1629372653},\\\"hS86aRP3jHhff9d68dz8CA\\\":{\\\"token\\\":\\\"$2a$10$GAEJB15TTUDDzxlYYZAldOt0uOGLH6j7LL3W8LWonKmcLhV5HsDCe\\\",\\\"expiry\\\":1629372667},\\\"OQPCW6Dx6WHMakpO3ejKsQ\\\":{\\\"token\\\":\\\"$2a$10$nvqKpIUjRhV4JEkx8HHRaeR7LX89CqnUDl8JUB958rj7a6LvD0fLO\\\",\\\"expiry\\\":1629373159},\\\"LviEUns8orHsS5m2X4d1wA\\\":{\\\"token\\\":\\\"$2a$10$loy/Nhl0npOmNQBQqOAz9en716TuUe719.cBjBtrezWLcut0x2reC\\\",\\\"expiry\\\":1629375702},\\\"PKkNzE7idu4l1eiN85MEJQ\\\":{\\\"token\\\":\\\"$2a$10$gesFga/hIKc6QJXZQM9VAOkJGbNiCZHDuLZaqMvqq65N4a9VpB0Ke\\\",\\\"expiry\\\":1629444117},\\\"8n3SK5i9jGuUnH2lZ7_Ccg\\\":{\\\"token\\\":\\\"$2a$10$gOub8WDhVlzy8pZlCbDP7ei66wDk2EohYOC2Avdwl.Wx2Q5fJ8ikC\\\",\\\"expiry\\\":1629444506},\\\"AFuqiU6UXnEeGukiHprNFA\\\":{\\\"token\\\":\\\"$2a$10$UFWhKAVMcfUOVxTLEWBk8uSGqae4TRcXKzCNmmLaZk1.q7GYto0Aa\\\",\\\"expiry\\\":1629444515},\\\"HxACzJizMasFjl1odYqmSQ\\\":{\\\"token\\\":\\\"$2a$10$x3m2Dyrfy9Xg82F1Hcx1jeenHbGUo0PUK.uzk3C1/D0yK6BoaOmLK\\\",\\\"expiry\\\":1629444689},\\\"ZYmeB2Mloms-RnaVspznSw\\\":{\\\"token\\\":\\\"$2a$10$7f3KGQIKxgnAmqIyjiiZFegv6h8t0x5KA9R8ZPtrhiGryc.Hk9gqa\\\",\\\"expiry\\\":1629444719},\\\"BKmTUvQz-l7eRnVO8Rh_rQ\\\":{\\\"token\\\":\\\"$2a$10$O.8JrS.FJ7TE1.3fafQ/7eW9i25t6VQq1kGCQvBQ1bg1blG2YzYua\\\",\\\"expiry\\\":1629444882},\\\"1qziuKslTPBKKcZxDVfPHw\\\":{\\\"token\\\":\\\"$2a$10$IUX/koSrvNO1QlCJZlg0Ke4fd2oZNJJ4Muq0JcJvP0aA/oQ15hByK\\\",\\\"expiry\\\":1629444941},\\\"ugwS0r8wX0mYTV_wza4XKQ\\\":{\\\"token\\\":\\\"$2a$10$uVDjddf1sirhYaFKL4hw6eJE5FgLjTvlb.LQu6V6dSIrSvC0hI9w6\\\",\\\"expiry\\\":1629445049},\\\"DTSdiVd8_hMQFcmPypW58w\\\":{\\\"token\\\":\\\"$2a$10$vbfMadqgCadTEuIaL60hXefRCFIgFkBAiJA1z04UG5.hIA8oKzSzu\\\",\\\"expiry\\\":1629445148},\\\"UTwCXNxTlVKl-Bwq43O5-Q\\\":{\\\"token\\\":\\\"$2a$10$6.TO7XwQAOzK3ZRlfFdibe59YBskCcoYhF.R/6i3RgKKWwfN7NJ/6\\\",\\\"expiry\\\":1629445178},\\\"7xTpof3H6VuTzPt-UrgmYg\\\":{\\\"token\\\":\\\"$2a$10$fy9pDX4zGucAS/Iy4onVAOIf6SCfLQz.BAQJEDasTIj2r4I1ZM.Oq\\\",\\\"expiry\\\":1629445331},\\\"IeWpO1CtnNFa5RsSoITvxQ\\\":{\\\"token\\\":\\\"$2a$10$i1WiZCbgBEoZmfednfw8GelqQO9Dhy0m5eU4g3Q7Ki7YufUYq7rc6\\\",\\\"expiry\\\":1629445376},\\\"eeX1NkZJHKXzVHfRd0EvBQ\\\":{\\\"token\\\":\\\"$2a$10$/8G6ciZaJWVMw.2WcbVhlu1eFWdBcC/jMAl64a2wy.6.h29jSNv2W\\\",\\\"expiry\\\":1629445461},\\\"dM5s69GS5CTEymtBtr53qg\\\":{\\\"token\\\":\\\"$2a$10$pDilKA4P2XHuCm1JaA/0ie19OSFoHMCIzAlAQMMyUO4IMJjonlPga\\\",\\\"expiry\\\":1629445665},\\\"O42eD9y8_V5p2qNK2WK2Og\\\":{\\\"token\\\":\\\"$2a$10$zb6Pbn9xpS2zgqV0oPMnwuPjCF1ZyZhXrRlV4PlGdzxDJ3p61sWRK\\\",\\\"expiry\\\":1629445736},\\\"BqaXGjAuIRmcnydeKTs25Q\\\":{\\\"token\\\":\\\"$2a$10$QltfxVrh0hL7mjW9GjLjmOE2oLv0R5EiT1vjJnyzmHzEsG3cRC/pi\\\",\\\"expiry\\\":1629445756},\\\"gsgIFyJTocAV8y5xXqxa1Q\\\":{\\\"token\\\":\\\"$2a$10$eaLxz7gFpYMqrfICTBzvQe65niXTzcDRLIXnkrdfkCRmdRzqxTUBC\\\",\\\"expiry\\\":1629448381},\\\"NVKG6XFcI5N02UJUGjEpUA\\\":{\\\"token\\\":\\\"$2a$10$snepKXkV9s2Q5u7Y1VzfWe.HrqCvj.d41XR3IVNQp3VnAiuIxp1Km\\\",\\\"expiry\\\":1629453608}}\""], ["updated_at", "2021-08-06 10:00:08.951735"], ["id", 1]]
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+Redirected to http://localhost:3001/login?token=eyJhY2Nlc3MtdG9rZW4iOiJ2ZlFKTDVPMm5hMGwzZXBkbEp3V3B3IiwiZXhwaXJ5IjoxNjI5NDUzNjA4LCJjbGllbnQiOiJOVktHNlhGY0k1TjAyVUpVR2pFcFVBIiwidWlkIjoiNzgwNDY0MTgifQ==
+Completed 302 Found in 59ms (ActiveRecord: 2.5ms | Allocations: 5335)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:00:09 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 57ms (Views: 0.3ms | ActiveRecord: 0.9ms | Allocations: 2199)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:00:09 +0300
+Processing by CurrentUsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 6ms (Views: 0.8ms | ActiveRecord: 0.6ms | Allocations: 2179)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:02:27 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 5ms (Views: 0.5ms | ActiveRecord: 0.5ms | Allocations: 2174)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:03:07 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 6ms (Views: 0.5ms | ActiveRecord: 0.6ms | Allocations: 2175)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:04:04 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 6ms (Views: 0.5ms | ActiveRecord: 0.4ms | Allocations: 2174)
+
+
+Started GET "/api/v1/auth/github" for ::1 at 2021-08-06 13:04:47 +0300
+Started GET "/omniauth/github?namespace_name=api&resource_class=User" for ::1 at 2021-08-06 13:04:47 +0300
+Started GET "/api/v1/auth/github/callback?code=b5f1e29e134f52e001a2&state=045448cebbb82812c08e68380bd8b0eeaa1686aa1b523f6b" for ::1 at 2021-08-06 13:04:48 +0300
+Processing by Api::V1::OmniauthCallbacksController#omniauth_success as HTML
+  Parameters: {"code"=>"b5f1e29e134f52e001a2", "state"=>"045448cebbb82812c08e68380bd8b0eeaa1686aa1b523f6b", "provider"=>"github"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["uid", "78046418"], ["provider", "github"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:6:in `omniauth_success'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"MZDBaSue8f8px3t2vClpZA\\\":{\\\"token\\\":\\\"$2a$10$ZkuKm.tzwKbEQuBjXMiPbOTHiPPyFPO8cF/azKno2Hpl2joECGwYy\\\",\\\"expiry\\\":1629283510},\\\"DOiQzROf1PLWsdMQjAMTNQ\\\":{\\\"token\\\":\\\"$2a$10$w/Fp7W57lTVrKQ5IrQnBj.MCxO4UUHO/4e9SrlOcuRrFkkVS3dUoq\\\",\\\"expiry\\\":1629283551},\\\"_D0XNWKrTO2kTrtpg-e5pw\\\":{\\\"token\\\":\\\"$2a$10$o5tcfZY1feXakl2RKjPnJext/A6QnjozeUCG1jekuZsJeYmFF6mrK\\\",\\\"expiry\\\":1629283609},\\\"ADlsQ65P8AJrKU8nt7JfKA\\\":{\\\"token\\\":\\\"$2a$10$rMNuWQxV3/XHeVp4Y9SpseYp3MSgP/.F9OUR9PkzniyOcaj92x.xK\\\",\\\"expiry\\\":1629283640},\\\"vam1FHk6H3Lw8EMEWsamsw\\\":{\\\"token\\\":\\\"$2a$10$8FtP/f3I0G1WzfHT0SgCsO3IjWMSt.QfDNRUPbZVB4uGafl9VTFMe\\\",\\\"expiry\\\":1629283687},\\\"coddCze6WBL_QLwKllLfbw\\\":{\\\"token\\\":\\\"$2a$10$sJIhH.wLqL7wQePIRChlFun7IPeLK/R8fRcP8NOMuFY5cqjSVcBGm\\\",\\\"expiry\\\":1629283718},\\\"NVb8PjN6toOi_5c41vkPeQ\\\":{\\\"token\\\":\\\"$2a$10$RfC9DZG/SjnqcZo0jTOobOMObcvKzZHYt4C29aLea5n5w7XVK2k96\\\",\\\"expiry\\\":1629300262},\\\"FGokueZpHOUA7Fb9zufsOg\\\":{\\\"token\\\":\\\"$2a$10$Kp0bpQluvuf89lFwMSdxbu2zH.yaxmfX4fpNdPY6xcSxqobuFgItO\\\",\\\"expiry\\\":1629300302},\\\"c8yjKsAj2omJ0elgshwTLg\\\":{\\\"token\\\":\\\"$2a$10$FGdRAFtxAdZwiX4P8ovIrellZ4/D/1hhEDq0uA74XMGb8dgaViR1a\\\",\\\"expiry\\\":1629300307},\\\"h49deKsnJac0SW9Lv0MJTg\\\":{\\\"token\\\":\\\"$2a$10$1/4qWPmLp.qhdpFT2XODTOPiI.AVJNQI7BPFbDzWGfauYWrHevK2C\\\",\\\"expiry\\\":1629300336},\\\"lGoCwixb2J4V_Yev3oJqDQ\\\":{\\\"token\\\":\\\"$2a$10$pMHUSeznkMqhZG6pu2q9CeubZP35AU330WADCVNTlWOcN0no1v.TK\\\",\\\"expiry\\\":1629365570},\\\"7dCWjy1OcyJgM6uZy0ItSQ\\\":{\\\"token\\\":\\\"$2a$10$.83zh73uowI5gncQ5N0flOjedEYVz5Iz./n/dTKBFRgq1UGcft34m\\\",\\\"expiry\\\":1629365781},\\\"_c9iI2NDsL4kJGkNnTFu5g\\\":{\\\"token\\\":\\\"$2a$10$4DALt7X/4ay0wfkWAY8Z2uZ4l169oQYA1af84eAVd4V3tq1CfiAXG\\\",\\\"expiry\\\":1629365783},\\\"1rs-H59Bpj9PUYMfEif1bw\\\":{\\\"token\\\":\\\"$2a$10$fPS4/JxO0eZWCjfe5mnCaO19DD1A/eKZ0jrCABQAYUcIc.w8A/xxS\\\",\\\"expiry\\\":1629372386},\\\"jxjtq5KLHfoR7Al8o8wdRg\\\":{\\\"token\\\":\\\"$2a$10$gQcb.kl/pFmHaJvx/WcNHuHR8xbRTUdBZ4c4vmwa.2MD0as55FJMy\\\",\\\"expiry\\\":1629372553},\\\"3eGijgW0Z_TRuFe-77yyfg\\\":{\\\"token\\\":\\\"$2a$10$LPVua9U.3ywxxH9o2FRfOO9VJAVdI9XCW3tvLxWWMZPdgWEoNjtte\\\",\\\"expiry\\\":1629372634},\\\"KP4T2wcya9V6aBBdPeTXhQ\\\":{\\\"token\\\":\\\"$2a$10$DoUKlrV.EivStg1.kNIte.ud1jg6Rxci6QHVoQaQf1BaOx0KPhy9C\\\",\\\"expiry\\\":1629372653},\\\"hS86aRP3jHhff9d68dz8CA\\\":{\\\"token\\\":\\\"$2a$10$GAEJB15TTUDDzxlYYZAldOt0uOGLH6j7LL3W8LWonKmcLhV5HsDCe\\\",\\\"expiry\\\":1629372667},\\\"OQPCW6Dx6WHMakpO3ejKsQ\\\":{\\\"token\\\":\\\"$2a$10$nvqKpIUjRhV4JEkx8HHRaeR7LX89CqnUDl8JUB958rj7a6LvD0fLO\\\",\\\"expiry\\\":1629373159},\\\"LviEUns8orHsS5m2X4d1wA\\\":{\\\"token\\\":\\\"$2a$10$loy/Nhl0npOmNQBQqOAz9en716TuUe719.cBjBtrezWLcut0x2reC\\\",\\\"expiry\\\":1629375702},\\\"PKkNzE7idu4l1eiN85MEJQ\\\":{\\\"token\\\":\\\"$2a$10$gesFga/hIKc6QJXZQM9VAOkJGbNiCZHDuLZaqMvqq65N4a9VpB0Ke\\\",\\\"expiry\\\":1629444117},\\\"8n3SK5i9jGuUnH2lZ7_Ccg\\\":{\\\"token\\\":\\\"$2a$10$gOub8WDhVlzy8pZlCbDP7ei66wDk2EohYOC2Avdwl.Wx2Q5fJ8ikC\\\",\\\"expiry\\\":1629444506},\\\"AFuqiU6UXnEeGukiHprNFA\\\":{\\\"token\\\":\\\"$2a$10$UFWhKAVMcfUOVxTLEWBk8uSGqae4TRcXKzCNmmLaZk1.q7GYto0Aa\\\",\\\"expiry\\\":1629444515},\\\"HxACzJizMasFjl1odYqmSQ\\\":{\\\"token\\\":\\\"$2a$10$x3m2Dyrfy9Xg82F1Hcx1jeenHbGUo0PUK.uzk3C1/D0yK6BoaOmLK\\\",\\\"expiry\\\":1629444689},\\\"ZYmeB2Mloms-RnaVspznSw\\\":{\\\"token\\\":\\\"$2a$10$7f3KGQIKxgnAmqIyjiiZFegv6h8t0x5KA9R8ZPtrhiGryc.Hk9gqa\\\",\\\"expiry\\\":1629444719},\\\"BKmTUvQz-l7eRnVO8Rh_rQ\\\":{\\\"token\\\":\\\"$2a$10$O.8JrS.FJ7TE1.3fafQ/7eW9i25t6VQq1kGCQvBQ1bg1blG2YzYua\\\",\\\"expiry\\\":1629444882},\\\"1qziuKslTPBKKcZxDVfPHw\\\":{\\\"token\\\":\\\"$2a$10$IUX/koSrvNO1QlCJZlg0Ke4fd2oZNJJ4Muq0JcJvP0aA/oQ15hByK\\\",\\\"expiry\\\":1629444941},\\\"ugwS0r8wX0mYTV_wza4XKQ\\\":{\\\"token\\\":\\\"$2a$10$uVDjddf1sirhYaFKL4hw6eJE5FgLjTvlb.LQu6V6dSIrSvC0hI9w6\\\",\\\"expiry\\\":1629445049},\\\"DTSdiVd8_hMQFcmPypW58w\\\":{\\\"token\\\":\\\"$2a$10$vbfMadqgCadTEuIaL60hXefRCFIgFkBAiJA1z04UG5.hIA8oKzSzu\\\",\\\"expiry\\\":1629445148},\\\"UTwCXNxTlVKl-Bwq43O5-Q\\\":{\\\"token\\\":\\\"$2a$10$6.TO7XwQAOzK3ZRlfFdibe59YBskCcoYhF.R/6i3RgKKWwfN7NJ/6\\\",\\\"expiry\\\":1629445178},\\\"7xTpof3H6VuTzPt-UrgmYg\\\":{\\\"token\\\":\\\"$2a$10$fy9pDX4zGucAS/Iy4onVAOIf6SCfLQz.BAQJEDasTIj2r4I1ZM.Oq\\\",\\\"expiry\\\":1629445331},\\\"IeWpO1CtnNFa5RsSoITvxQ\\\":{\\\"token\\\":\\\"$2a$10$i1WiZCbgBEoZmfednfw8GelqQO9Dhy0m5eU4g3Q7Ki7YufUYq7rc6\\\",\\\"expiry\\\":1629445376},\\\"eeX1NkZJHKXzVHfRd0EvBQ\\\":{\\\"token\\\":\\\"$2a$10$/8G6ciZaJWVMw.2WcbVhlu1eFWdBcC/jMAl64a2wy.6.h29jSNv2W\\\",\\\"expiry\\\":1629445461},\\\"dM5s69GS5CTEymtBtr53qg\\\":{\\\"token\\\":\\\"$2a$10$pDilKA4P2XHuCm1JaA/0ie19OSFoHMCIzAlAQMMyUO4IMJjonlPga\\\",\\\"expiry\\\":1629445665},\\\"O42eD9y8_V5p2qNK2WK2Og\\\":{\\\"token\\\":\\\"$2a$10$zb6Pbn9xpS2zgqV0oPMnwuPjCF1ZyZhXrRlV4PlGdzxDJ3p61sWRK\\\",\\\"expiry\\\":1629445736},\\\"BqaXGjAuIRmcnydeKTs25Q\\\":{\\\"token\\\":\\\"$2a$10$QltfxVrh0hL7mjW9GjLjmOE2oLv0R5EiT1vjJnyzmHzEsG3cRC/pi\\\",\\\"expiry\\\":1629445756},\\\"gsgIFyJTocAV8y5xXqxa1Q\\\":{\\\"token\\\":\\\"$2a$10$eaLxz7gFpYMqrfICTBzvQe65niXTzcDRLIXnkrdfkCRmdRzqxTUBC\\\",\\\"expiry\\\":1629448381},\\\"NVKG6XFcI5N02UJUGjEpUA\\\":{\\\"token\\\":\\\"$2a$10$snepKXkV9s2Q5u7Y1VzfWe.HrqCvj.d41XR3IVNQp3VnAiuIxp1Km\\\",\\\"expiry\\\":1629453608},\\\"curivuCj5fBKJ9jYqfay9A\\\":{\\\"token\\\":\\\"$2a$10$rIdsPuyEKhYQH7njyidCSuzOw9SUQXeGmZAGTKh65TgV2j//R10vm\\\",\\\"expiry\\\":1629453889}}\""], ["updated_at", "2021-08-06 10:04:49.839291"], ["id", 1]]
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+Redirected to http://localhost:3001/login?token=eyJhY2Nlc3MtdG9rZW4iOiJsQVlKcUNhcEVNZU1oa0FZOFlTeDV3IiwiZXhwaXJ5IjoxNjI5NDUzODg5LCJjbGllbnQiOiJjdXJpdnVDajVmQktKOWpZcWZheTlBIiwidWlkIjoiNzgwNDY0MTgifQ==
+Completed 302 Found in 63ms (ActiveRecord: 2.1ms | Allocations: 4826)
+
+
+Started GET "/" for ::1 at 2021-08-06 13:06:46 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 103)
+
+
+Started GET "/" for ::1 at 2021-08-06 13:07:05 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 103)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:07:06 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 62ms (Views: 0.4ms | ActiveRecord: 0.6ms | Allocations: 2209)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 13:07:07 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.4ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 8ms (Views: 1.0ms | ActiveRecord: 0.9ms | Allocations: 2795)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:07:07 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 6ms (Views: 0.7ms | ActiveRecord: 0.7ms | Allocations: 2184)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 13:07:08 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.1ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.4ms | Allocations: 2795)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:07:11 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 0.6ms | Allocations: 2184)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 13:07:11 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.3ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 6ms (Views: 0.6ms | ActiveRecord: 0.6ms | Allocations: 2795)
+
+
+Started GET "/api/v1/auth/github" for ::1 at 2021-08-06 13:07:13 +0300
+Started GET "/omniauth/github?namespace_name=api&resource_class=User" for ::1 at 2021-08-06 13:07:13 +0300
+Started GET "/api/v1/auth/github/callback?code=f9bcdca8890c2228ec32&state=f0acedbda2e841be873c33c72eeea0e841feb19bc612db84" for ::1 at 2021-08-06 13:07:14 +0300
+Processing by Api::V1::OmniauthCallbacksController#omniauth_success as HTML
+  Parameters: {"code"=>"f9bcdca8890c2228ec32", "state"=>"f0acedbda2e841be873c33c72eeea0e841feb19bc612db84", "provider"=>"github"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["uid", "78046418"], ["provider", "github"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:6:in `omniauth_success'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"MZDBaSue8f8px3t2vClpZA\\\":{\\\"token\\\":\\\"$2a$10$ZkuKm.tzwKbEQuBjXMiPbOTHiPPyFPO8cF/azKno2Hpl2joECGwYy\\\",\\\"expiry\\\":1629283510},\\\"DOiQzROf1PLWsdMQjAMTNQ\\\":{\\\"token\\\":\\\"$2a$10$w/Fp7W57lTVrKQ5IrQnBj.MCxO4UUHO/4e9SrlOcuRrFkkVS3dUoq\\\",\\\"expiry\\\":1629283551},\\\"_D0XNWKrTO2kTrtpg-e5pw\\\":{\\\"token\\\":\\\"$2a$10$o5tcfZY1feXakl2RKjPnJext/A6QnjozeUCG1jekuZsJeYmFF6mrK\\\",\\\"expiry\\\":1629283609},\\\"ADlsQ65P8AJrKU8nt7JfKA\\\":{\\\"token\\\":\\\"$2a$10$rMNuWQxV3/XHeVp4Y9SpseYp3MSgP/.F9OUR9PkzniyOcaj92x.xK\\\",\\\"expiry\\\":1629283640},\\\"vam1FHk6H3Lw8EMEWsamsw\\\":{\\\"token\\\":\\\"$2a$10$8FtP/f3I0G1WzfHT0SgCsO3IjWMSt.QfDNRUPbZVB4uGafl9VTFMe\\\",\\\"expiry\\\":1629283687},\\\"coddCze6WBL_QLwKllLfbw\\\":{\\\"token\\\":\\\"$2a$10$sJIhH.wLqL7wQePIRChlFun7IPeLK/R8fRcP8NOMuFY5cqjSVcBGm\\\",\\\"expiry\\\":1629283718},\\\"NVb8PjN6toOi_5c41vkPeQ\\\":{\\\"token\\\":\\\"$2a$10$RfC9DZG/SjnqcZo0jTOobOMObcvKzZHYt4C29aLea5n5w7XVK2k96\\\",\\\"expiry\\\":1629300262},\\\"FGokueZpHOUA7Fb9zufsOg\\\":{\\\"token\\\":\\\"$2a$10$Kp0bpQluvuf89lFwMSdxbu2zH.yaxmfX4fpNdPY6xcSxqobuFgItO\\\",\\\"expiry\\\":1629300302},\\\"c8yjKsAj2omJ0elgshwTLg\\\":{\\\"token\\\":\\\"$2a$10$FGdRAFtxAdZwiX4P8ovIrellZ4/D/1hhEDq0uA74XMGb8dgaViR1a\\\",\\\"expiry\\\":1629300307},\\\"h49deKsnJac0SW9Lv0MJTg\\\":{\\\"token\\\":\\\"$2a$10$1/4qWPmLp.qhdpFT2XODTOPiI.AVJNQI7BPFbDzWGfauYWrHevK2C\\\",\\\"expiry\\\":1629300336},\\\"lGoCwixb2J4V_Yev3oJqDQ\\\":{\\\"token\\\":\\\"$2a$10$pMHUSeznkMqhZG6pu2q9CeubZP35AU330WADCVNTlWOcN0no1v.TK\\\",\\\"expiry\\\":1629365570},\\\"7dCWjy1OcyJgM6uZy0ItSQ\\\":{\\\"token\\\":\\\"$2a$10$.83zh73uowI5gncQ5N0flOjedEYVz5Iz./n/dTKBFRgq1UGcft34m\\\",\\\"expiry\\\":1629365781},\\\"_c9iI2NDsL4kJGkNnTFu5g\\\":{\\\"token\\\":\\\"$2a$10$4DALt7X/4ay0wfkWAY8Z2uZ4l169oQYA1af84eAVd4V3tq1CfiAXG\\\",\\\"expiry\\\":1629365783},\\\"1rs-H59Bpj9PUYMfEif1bw\\\":{\\\"token\\\":\\\"$2a$10$fPS4/JxO0eZWCjfe5mnCaO19DD1A/eKZ0jrCABQAYUcIc.w8A/xxS\\\",\\\"expiry\\\":1629372386},\\\"jxjtq5KLHfoR7Al8o8wdRg\\\":{\\\"token\\\":\\\"$2a$10$gQcb.kl/pFmHaJvx/WcNHuHR8xbRTUdBZ4c4vmwa.2MD0as55FJMy\\\",\\\"expiry\\\":1629372553},\\\"3eGijgW0Z_TRuFe-77yyfg\\\":{\\\"token\\\":\\\"$2a$10$LPVua9U.3ywxxH9o2FRfOO9VJAVdI9XCW3tvLxWWMZPdgWEoNjtte\\\",\\\"expiry\\\":1629372634},\\\"KP4T2wcya9V6aBBdPeTXhQ\\\":{\\\"token\\\":\\\"$2a$10$DoUKlrV.EivStg1.kNIte.ud1jg6Rxci6QHVoQaQf1BaOx0KPhy9C\\\",\\\"expiry\\\":1629372653},\\\"hS86aRP3jHhff9d68dz8CA\\\":{\\\"token\\\":\\\"$2a$10$GAEJB15TTUDDzxlYYZAldOt0uOGLH6j7LL3W8LWonKmcLhV5HsDCe\\\",\\\"expiry\\\":1629372667},\\\"OQPCW6Dx6WHMakpO3ejKsQ\\\":{\\\"token\\\":\\\"$2a$10$nvqKpIUjRhV4JEkx8HHRaeR7LX89CqnUDl8JUB958rj7a6LvD0fLO\\\",\\\"expiry\\\":1629373159},\\\"LviEUns8orHsS5m2X4d1wA\\\":{\\\"token\\\":\\\"$2a$10$loy/Nhl0npOmNQBQqOAz9en716TuUe719.cBjBtrezWLcut0x2reC\\\",\\\"expiry\\\":1629375702},\\\"PKkNzE7idu4l1eiN85MEJQ\\\":{\\\"token\\\":\\\"$2a$10$gesFga/hIKc6QJXZQM9VAOkJGbNiCZHDuLZaqMvqq65N4a9VpB0Ke\\\",\\\"expiry\\\":1629444117},\\\"8n3SK5i9jGuUnH2lZ7_Ccg\\\":{\\\"token\\\":\\\"$2a$10$gOub8WDhVlzy8pZlCbDP7ei66wDk2EohYOC2Avdwl.Wx2Q5fJ8ikC\\\",\\\"expiry\\\":1629444506},\\\"AFuqiU6UXnEeGukiHprNFA\\\":{\\\"token\\\":\\\"$2a$10$UFWhKAVMcfUOVxTLEWBk8uSGqae4TRcXKzCNmmLaZk1.q7GYto0Aa\\\",\\\"expiry\\\":1629444515},\\\"HxACzJizMasFjl1odYqmSQ\\\":{\\\"token\\\":\\\"$2a$10$x3m2Dyrfy9Xg82F1Hcx1jeenHbGUo0PUK.uzk3C1/D0yK6BoaOmLK\\\",\\\"expiry\\\":1629444689},\\\"ZYmeB2Mloms-RnaVspznSw\\\":{\\\"token\\\":\\\"$2a$10$7f3KGQIKxgnAmqIyjiiZFegv6h8t0x5KA9R8ZPtrhiGryc.Hk9gqa\\\",\\\"expiry\\\":1629444719},\\\"BKmTUvQz-l7eRnVO8Rh_rQ\\\":{\\\"token\\\":\\\"$2a$10$O.8JrS.FJ7TE1.3fafQ/7eW9i25t6VQq1kGCQvBQ1bg1blG2YzYua\\\",\\\"expiry\\\":1629444882},\\\"1qziuKslTPBKKcZxDVfPHw\\\":{\\\"token\\\":\\\"$2a$10$IUX/koSrvNO1QlCJZlg0Ke4fd2oZNJJ4Muq0JcJvP0aA/oQ15hByK\\\",\\\"expiry\\\":1629444941},\\\"ugwS0r8wX0mYTV_wza4XKQ\\\":{\\\"token\\\":\\\"$2a$10$uVDjddf1sirhYaFKL4hw6eJE5FgLjTvlb.LQu6V6dSIrSvC0hI9w6\\\",\\\"expiry\\\":1629445049},\\\"DTSdiVd8_hMQFcmPypW58w\\\":{\\\"token\\\":\\\"$2a$10$vbfMadqgCadTEuIaL60hXefRCFIgFkBAiJA1z04UG5.hIA8oKzSzu\\\",\\\"expiry\\\":1629445148},\\\"UTwCXNxTlVKl-Bwq43O5-Q\\\":{\\\"token\\\":\\\"$2a$10$6.TO7XwQAOzK3ZRlfFdibe59YBskCcoYhF.R/6i3RgKKWwfN7NJ/6\\\",\\\"expiry\\\":1629445178},\\\"7xTpof3H6VuTzPt-UrgmYg\\\":{\\\"token\\\":\\\"$2a$10$fy9pDX4zGucAS/Iy4onVAOIf6SCfLQz.BAQJEDasTIj2r4I1ZM.Oq\\\",\\\"expiry\\\":1629445331},\\\"IeWpO1CtnNFa5RsSoITvxQ\\\":{\\\"token\\\":\\\"$2a$10$i1WiZCbgBEoZmfednfw8GelqQO9Dhy0m5eU4g3Q7Ki7YufUYq7rc6\\\",\\\"expiry\\\":1629445376},\\\"eeX1NkZJHKXzVHfRd0EvBQ\\\":{\\\"token\\\":\\\"$2a$10$/8G6ciZaJWVMw.2WcbVhlu1eFWdBcC/jMAl64a2wy.6.h29jSNv2W\\\",\\\"expiry\\\":1629445461},\\\"dM5s69GS5CTEymtBtr53qg\\\":{\\\"token\\\":\\\"$2a$10$pDilKA4P2XHuCm1JaA/0ie19OSFoHMCIzAlAQMMyUO4IMJjonlPga\\\",\\\"expiry\\\":1629445665},\\\"O42eD9y8_V5p2qNK2WK2Og\\\":{\\\"token\\\":\\\"$2a$10$zb6Pbn9xpS2zgqV0oPMnwuPjCF1ZyZhXrRlV4PlGdzxDJ3p61sWRK\\\",\\\"expiry\\\":1629445736},\\\"BqaXGjAuIRmcnydeKTs25Q\\\":{\\\"token\\\":\\\"$2a$10$QltfxVrh0hL7mjW9GjLjmOE2oLv0R5EiT1vjJnyzmHzEsG3cRC/pi\\\",\\\"expiry\\\":1629445756},\\\"gsgIFyJTocAV8y5xXqxa1Q\\\":{\\\"token\\\":\\\"$2a$10$eaLxz7gFpYMqrfICTBzvQe65niXTzcDRLIXnkrdfkCRmdRzqxTUBC\\\",\\\"expiry\\\":1629448381},\\\"NVKG6XFcI5N02UJUGjEpUA\\\":{\\\"token\\\":\\\"$2a$10$snepKXkV9s2Q5u7Y1VzfWe.HrqCvj.d41XR3IVNQp3VnAiuIxp1Km\\\",\\\"expiry\\\":1629453608},\\\"curivuCj5fBKJ9jYqfay9A\\\":{\\\"token\\\":\\\"$2a$10$rIdsPuyEKhYQH7njyidCSuzOw9SUQXeGmZAGTKh65TgV2j//R10vm\\\",\\\"expiry\\\":1629453889},\\\"lnnyBbTKpq-qgDsIFpSC0g\\\":{\\\"token\\\":\\\"$2a$10$zTcDXOb7Uyw5U3OeGnLYSeJpU0FCd9tj3aao4nbDOjsYNVOqcs3R2\\\",\\\"expiry\\\":1629454035}}\""], ["updated_at", "2021-08-06 10:07:15.565426"], ["id", 1]]
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+Redirected to http://localhost:3001/login?token=eyJhY2Nlc3MtdG9rZW4iOiJobmJXZy1DRWVIdmZOQzFkTmpnTHRBIiwiZXhwaXJ5IjoxNjI5NDU0MDM1LCJjbGllbnQiOiJsbm55QmJUS3BxLXFnRHNJRnBTQzBnIiwidWlkIjoiNzgwNDY0MTgifQ==
+Completed 302 Found in 66ms (ActiveRecord: 4.0ms | Allocations: 4887)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:07:15 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 58ms (Views: 0.4ms | ActiveRecord: 0.6ms | Allocations: 2219)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 13:07:15 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+Started GET "/me" for ::1 at 2021-08-06 13:07:15 +0300
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+Processing by CurrentUsersController#me as */*
+  [1m[36mTodolist Load (1.6ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 11ms (Views: 0.9ms | ActiveRecord: 2.9ms | Allocations: 4124)
+
+
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 21ms (Views: 0.6ms | ActiveRecord: 8.8ms | Allocations: 6692)
+
+
+Started DELETE "/api/v1/todo_items/111" for ::1 at 2021-08-06 13:07:17 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"111"}
+  [1m[36mTodolist Load (0.6ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 111], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.3ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 111]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 4.0ms | Allocations: 1932)
+
+
+Started POST "/api/v1/todo_items" for ::1 at 2021-08-06 13:07:19 +0300
+Processing by Api::V1::TodoItemsController#create as */*
+  Parameters: {"title"=>"JavaScript 2.0 fron Alex Lushchenko", "complete"=>false, "user_id"=>1, "todo_item"=>{"title"=>"JavaScript 2.0 fron Alex Lushchenko", "complete"=>false, "user_id"=>1}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTodolist Create (1.2ms)[0m  [1m[32mINSERT INTO "todolists" ("title", "complete", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "JavaScript 2.0 fron Alex Lushchenko"], ["complete", false], ["user_id", 1], ["created_at", "2021-08-06 10:07:19.372052"], ["updated_at", "2021-08-06 10:07:19.372052"]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+Completed 200 OK in 14ms (Views: 0.2ms | ActiveRecord: 4.3ms | Allocations: 3027)
+
+
+Started POST "/api/v1/todo_items" for ::1 at 2021-08-06 13:07:19 +0300
+Processing by Api::V1::TodoItemsController#create as */*
+  Parameters: {"title"=>"", "complete"=>false, "user_id"=>1, "todo_item"=>{"title"=>"", "complete"=>false, "user_id"=>1}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTodolist Create (0.6ms)[0m  [1m[32mINSERT INTO "todolists" ("title", "complete", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", ""], ["complete", false], ["user_id", 1], ["created_at", "2021-08-06 10:07:19.785847"], ["updated_at", "2021-08-06 10:07:19.785847"]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+Completed 200 OK in 11ms (Views: 0.3ms | ActiveRecord: 4.5ms | Allocations: 2736)
+
+
+Started POST "/api/v1/todo_items" for ::1 at 2021-08-06 13:07:20 +0300
+Processing by Api::V1::TodoItemsController#create as */*
+  Parameters: {"title"=>"", "complete"=>false, "user_id"=>1, "todo_item"=>{"title"=>"", "complete"=>false, "user_id"=>1}}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTodolist Create (0.6ms)[0m  [1m[32mINSERT INTO "todolists" ("title", "complete", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", ""], ["complete", false], ["user_id", 1], ["created_at", "2021-08-06 10:07:20.133367"], ["updated_at", "2021-08-06 10:07:20.133367"]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+Completed 200 OK in 12ms (Views: 0.3ms | ActiveRecord: 4.0ms | Allocations: 2736)
+
+
+Started DELETE "/api/v1/todo_items/114" for ::1 at 2021-08-06 13:07:20 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"114"}
+  [1m[36mTodolist Load (0.4ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 114], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.2ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 114]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 3.2ms | Allocations: 1834)
+
+
+Started DELETE "/api/v1/todo_items/115" for ::1 at 2021-08-06 13:07:21 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"115"}
+  [1m[36mTodolist Load (0.2ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 115], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.3ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 115]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 3.2ms | Allocations: 1834)
+
+
+Started DELETE "/api/v1/todo_items/97" for ::1 at 2021-08-06 13:07:27 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"97"}
+  [1m[36mTodolist Load (0.2ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 97], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.4ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 97]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 6ms (Views: 0.2ms | ActiveRecord: 1.8ms | Allocations: 1834)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:07:28 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.7ms | Allocations: 2195)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 13:07:28 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.5ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 8ms (Views: 0.5ms | ActiveRecord: 1.3ms | Allocations: 2721)
+
+
+Started DELETE "/api/v1/todo_items/96" for ::1 at 2021-08-06 13:07:29 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"96"}
+  [1m[36mTodolist Load (0.2ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 96], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.3ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 96]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 3.2ms | Allocations: 1833)
+
+
+Started GET "/me" for ::1 at 2021-08-06 13:07:29 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 5ms (Views: 0.4ms | ActiveRecord: 0.5ms | Allocations: 2195)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 13:07:29 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.6ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 8ms (Views: 0.5ms | ActiveRecord: 1.3ms | Allocations: 2631)
+
+
+Started GET "/api/v1/auth/github" for ::1 at 2021-08-06 13:09:19 +0300
+Started GET "/omniauth/github?namespace_name=api&resource_class=User" for ::1 at 2021-08-06 13:09:19 +0300
+Started GET "/api/v1/auth/github/callback?code=b97d5925350687461dc4&state=a8a0b507b8627948199d987d8bf31f9e524a6bdc61c0244a" for ::1 at 2021-08-06 13:09:19 +0300
+Processing by Api::V1::OmniauthCallbacksController#omniauth_success as HTML
+  Parameters: {"code"=>"b97d5925350687461dc4", "state"=>"a8a0b507b8627948199d987d8bf31f9e524a6bdc61c0244a", "provider"=>"github"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 AND "users"."provider" = $2 LIMIT $3[0m  [["uid", "78046418"], ["provider", "github"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:6:in `omniauth_success'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+  [1m[36mUser Update (0.8ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "\"{\\\"MZDBaSue8f8px3t2vClpZA\\\":{\\\"token\\\":\\\"$2a$10$ZkuKm.tzwKbEQuBjXMiPbOTHiPPyFPO8cF/azKno2Hpl2joECGwYy\\\",\\\"expiry\\\":1629283510},\\\"DOiQzROf1PLWsdMQjAMTNQ\\\":{\\\"token\\\":\\\"$2a$10$w/Fp7W57lTVrKQ5IrQnBj.MCxO4UUHO/4e9SrlOcuRrFkkVS3dUoq\\\",\\\"expiry\\\":1629283551},\\\"_D0XNWKrTO2kTrtpg-e5pw\\\":{\\\"token\\\":\\\"$2a$10$o5tcfZY1feXakl2RKjPnJext/A6QnjozeUCG1jekuZsJeYmFF6mrK\\\",\\\"expiry\\\":1629283609},\\\"ADlsQ65P8AJrKU8nt7JfKA\\\":{\\\"token\\\":\\\"$2a$10$rMNuWQxV3/XHeVp4Y9SpseYp3MSgP/.F9OUR9PkzniyOcaj92x.xK\\\",\\\"expiry\\\":1629283640},\\\"vam1FHk6H3Lw8EMEWsamsw\\\":{\\\"token\\\":\\\"$2a$10$8FtP/f3I0G1WzfHT0SgCsO3IjWMSt.QfDNRUPbZVB4uGafl9VTFMe\\\",\\\"expiry\\\":1629283687},\\\"coddCze6WBL_QLwKllLfbw\\\":{\\\"token\\\":\\\"$2a$10$sJIhH.wLqL7wQePIRChlFun7IPeLK/R8fRcP8NOMuFY5cqjSVcBGm\\\",\\\"expiry\\\":1629283718},\\\"NVb8PjN6toOi_5c41vkPeQ\\\":{\\\"token\\\":\\\"$2a$10$RfC9DZG/SjnqcZo0jTOobOMObcvKzZHYt4C29aLea5n5w7XVK2k96\\\",\\\"expiry\\\":1629300262},\\\"FGokueZpHOUA7Fb9zufsOg\\\":{\\\"token\\\":\\\"$2a$10$Kp0bpQluvuf89lFwMSdxbu2zH.yaxmfX4fpNdPY6xcSxqobuFgItO\\\",\\\"expiry\\\":1629300302},\\\"c8yjKsAj2omJ0elgshwTLg\\\":{\\\"token\\\":\\\"$2a$10$FGdRAFtxAdZwiX4P8ovIrellZ4/D/1hhEDq0uA74XMGb8dgaViR1a\\\",\\\"expiry\\\":1629300307},\\\"h49deKsnJac0SW9Lv0MJTg\\\":{\\\"token\\\":\\\"$2a$10$1/4qWPmLp.qhdpFT2XODTOPiI.AVJNQI7BPFbDzWGfauYWrHevK2C\\\",\\\"expiry\\\":1629300336},\\\"lGoCwixb2J4V_Yev3oJqDQ\\\":{\\\"token\\\":\\\"$2a$10$pMHUSeznkMqhZG6pu2q9CeubZP35AU330WADCVNTlWOcN0no1v.TK\\\",\\\"expiry\\\":1629365570},\\\"7dCWjy1OcyJgM6uZy0ItSQ\\\":{\\\"token\\\":\\\"$2a$10$.83zh73uowI5gncQ5N0flOjedEYVz5Iz./n/dTKBFRgq1UGcft34m\\\",\\\"expiry\\\":1629365781},\\\"_c9iI2NDsL4kJGkNnTFu5g\\\":{\\\"token\\\":\\\"$2a$10$4DALt7X/4ay0wfkWAY8Z2uZ4l169oQYA1af84eAVd4V3tq1CfiAXG\\\",\\\"expiry\\\":1629365783},\\\"1rs-H59Bpj9PUYMfEif1bw\\\":{\\\"token\\\":\\\"$2a$10$fPS4/JxO0eZWCjfe5mnCaO19DD1A/eKZ0jrCABQAYUcIc.w8A/xxS\\\",\\\"expiry\\\":1629372386},\\\"jxjtq5KLHfoR7Al8o8wdRg\\\":{\\\"token\\\":\\\"$2a$10$gQcb.kl/pFmHaJvx/WcNHuHR8xbRTUdBZ4c4vmwa.2MD0as55FJMy\\\",\\\"expiry\\\":1629372553},\\\"3eGijgW0Z_TRuFe-77yyfg\\\":{\\\"token\\\":\\\"$2a$10$LPVua9U.3ywxxH9o2FRfOO9VJAVdI9XCW3tvLxWWMZPdgWEoNjtte\\\",\\\"expiry\\\":1629372634},\\\"KP4T2wcya9V6aBBdPeTXhQ\\\":{\\\"token\\\":\\\"$2a$10$DoUKlrV.EivStg1.kNIte.ud1jg6Rxci6QHVoQaQf1BaOx0KPhy9C\\\",\\\"expiry\\\":1629372653},\\\"hS86aRP3jHhff9d68dz8CA\\\":{\\\"token\\\":\\\"$2a$10$GAEJB15TTUDDzxlYYZAldOt0uOGLH6j7LL3W8LWonKmcLhV5HsDCe\\\",\\\"expiry\\\":1629372667},\\\"OQPCW6Dx6WHMakpO3ejKsQ\\\":{\\\"token\\\":\\\"$2a$10$nvqKpIUjRhV4JEkx8HHRaeR7LX89CqnUDl8JUB958rj7a6LvD0fLO\\\",\\\"expiry\\\":1629373159},\\\"LviEUns8orHsS5m2X4d1wA\\\":{\\\"token\\\":\\\"$2a$10$loy/Nhl0npOmNQBQqOAz9en716TuUe719.cBjBtrezWLcut0x2reC\\\",\\\"expiry\\\":1629375702},\\\"PKkNzE7idu4l1eiN85MEJQ\\\":{\\\"token\\\":\\\"$2a$10$gesFga/hIKc6QJXZQM9VAOkJGbNiCZHDuLZaqMvqq65N4a9VpB0Ke\\\",\\\"expiry\\\":1629444117},\\\"8n3SK5i9jGuUnH2lZ7_Ccg\\\":{\\\"token\\\":\\\"$2a$10$gOub8WDhVlzy8pZlCbDP7ei66wDk2EohYOC2Avdwl.Wx2Q5fJ8ikC\\\",\\\"expiry\\\":1629444506},\\\"AFuqiU6UXnEeGukiHprNFA\\\":{\\\"token\\\":\\\"$2a$10$UFWhKAVMcfUOVxTLEWBk8uSGqae4TRcXKzCNmmLaZk1.q7GYto0Aa\\\",\\\"expiry\\\":1629444515},\\\"HxACzJizMasFjl1odYqmSQ\\\":{\\\"token\\\":\\\"$2a$10$x3m2Dyrfy9Xg82F1Hcx1jeenHbGUo0PUK.uzk3C1/D0yK6BoaOmLK\\\",\\\"expiry\\\":1629444689},\\\"ZYmeB2Mloms-RnaVspznSw\\\":{\\\"token\\\":\\\"$2a$10$7f3KGQIKxgnAmqIyjiiZFegv6h8t0x5KA9R8ZPtrhiGryc.Hk9gqa\\\",\\\"expiry\\\":1629444719},\\\"BKmTUvQz-l7eRnVO8Rh_rQ\\\":{\\\"token\\\":\\\"$2a$10$O.8JrS.FJ7TE1.3fafQ/7eW9i25t6VQq1kGCQvBQ1bg1blG2YzYua\\\",\\\"expiry\\\":1629444882},\\\"1qziuKslTPBKKcZxDVfPHw\\\":{\\\"token\\\":\\\"$2a$10$IUX/koSrvNO1QlCJZlg0Ke4fd2oZNJJ4Muq0JcJvP0aA/oQ15hByK\\\",\\\"expiry\\\":1629444941},\\\"ugwS0r8wX0mYTV_wza4XKQ\\\":{\\\"token\\\":\\\"$2a$10$uVDjddf1sirhYaFKL4hw6eJE5FgLjTvlb.LQu6V6dSIrSvC0hI9w6\\\",\\\"expiry\\\":1629445049},\\\"DTSdiVd8_hMQFcmPypW58w\\\":{\\\"token\\\":\\\"$2a$10$vbfMadqgCadTEuIaL60hXefRCFIgFkBAiJA1z04UG5.hIA8oKzSzu\\\",\\\"expiry\\\":1629445148},\\\"UTwCXNxTlVKl-Bwq43O5-Q\\\":{\\\"token\\\":\\\"$2a$10$6.TO7XwQAOzK3ZRlfFdibe59YBskCcoYhF.R/6i3RgKKWwfN7NJ/6\\\",\\\"expiry\\\":1629445178},\\\"7xTpof3H6VuTzPt-UrgmYg\\\":{\\\"token\\\":\\\"$2a$10$fy9pDX4zGucAS/Iy4onVAOIf6SCfLQz.BAQJEDasTIj2r4I1ZM.Oq\\\",\\\"expiry\\\":1629445331},\\\"IeWpO1CtnNFa5RsSoITvxQ\\\":{\\\"token\\\":\\\"$2a$10$i1WiZCbgBEoZmfednfw8GelqQO9Dhy0m5eU4g3Q7Ki7YufUYq7rc6\\\",\\\"expiry\\\":1629445376},\\\"eeX1NkZJHKXzVHfRd0EvBQ\\\":{\\\"token\\\":\\\"$2a$10$/8G6ciZaJWVMw.2WcbVhlu1eFWdBcC/jMAl64a2wy.6.h29jSNv2W\\\",\\\"expiry\\\":1629445461},\\\"dM5s69GS5CTEymtBtr53qg\\\":{\\\"token\\\":\\\"$2a$10$pDilKA4P2XHuCm1JaA/0ie19OSFoHMCIzAlAQMMyUO4IMJjonlPga\\\",\\\"expiry\\\":1629445665},\\\"O42eD9y8_V5p2qNK2WK2Og\\\":{\\\"token\\\":\\\"$2a$10$zb6Pbn9xpS2zgqV0oPMnwuPjCF1ZyZhXrRlV4PlGdzxDJ3p61sWRK\\\",\\\"expiry\\\":1629445736},\\\"BqaXGjAuIRmcnydeKTs25Q\\\":{\\\"token\\\":\\\"$2a$10$QltfxVrh0hL7mjW9GjLjmOE2oLv0R5EiT1vjJnyzmHzEsG3cRC/pi\\\",\\\"expiry\\\":1629445756},\\\"gsgIFyJTocAV8y5xXqxa1Q\\\":{\\\"token\\\":\\\"$2a$10$eaLxz7gFpYMqrfICTBzvQe65niXTzcDRLIXnkrdfkCRmdRzqxTUBC\\\",\\\"expiry\\\":1629448381},\\\"NVKG6XFcI5N02UJUGjEpUA\\\":{\\\"token\\\":\\\"$2a$10$snepKXkV9s2Q5u7Y1VzfWe.HrqCvj.d41XR3IVNQp3VnAiuIxp1Km\\\",\\\"expiry\\\":1629453608},\\\"curivuCj5fBKJ9jYqfay9A\\\":{\\\"token\\\":\\\"$2a$10$rIdsPuyEKhYQH7njyidCSuzOw9SUQXeGmZAGTKh65TgV2j//R10vm\\\",\\\"expiry\\\":1629453889},\\\"lnnyBbTKpq-qgDsIFpSC0g\\\":{\\\"token\\\":\\\"$2a$10$zTcDXOb7Uyw5U3OeGnLYSeJpU0FCd9tj3aao4nbDOjsYNVOqcs3R2\\\",\\\"expiry\\\":1629454035},\\\"OveOIiaFvRrOMFHk33AGlg\\\":{\\\"token\\\":\\\"$2a$10$f8q0UsIEtas4zWVTlSjD7.e3Ds8mASMHvUELxvAgGQzxsZOxSltIu\\\",\\\"expiry\\\":1629454161}}\""], ["updated_at", "2021-08-06 10:09:21.215781"], ["id", 1]]
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/omniauth_callbacks_controller.rb:19:in `omniauth_success'
+Redirected to http://localhost:3001/login?token=eyJhY2Nlc3MtdG9rZW4iOiItLWM2akx5NTB2OGVYdzdMQlQtSjdnIiwiZXhwaXJ5IjoxNjI5NDU0MTYxLCJjbGllbnQiOiJPdmVPSWlhRnZSck9NRkhrMzNBR2xnIiwidWlkIjoiNzgwNDY0MTgifQ==
+Completed 302 Found in 70ms (ActiveRecord: 3.9ms | Allocations: 4945)
+
+
+Started GET "/" for ::1 at 2021-08-06 13:14:51 +0300
+Processing by Api::V1::TodoItemsController#index as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 1139)
+
+
+  
+NoMethodError (undefined method `id' for nil:NilClass):
+  
+app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+Started GET "/" for ::1 at 2021-08-06 13:14:52 +0300
+Processing by Api::V1::TodoItemsController#index as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 710)
+
+
+  
+NoMethodError (undefined method `id' for nil:NilClass):
+  
+app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+Started GET "/" for ::1 at 2021-08-06 13:14:52 +0300
+Processing by Api::V1::TodoItemsController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 709)
+
+
+  
+NoMethodError (undefined method `id' for nil:NilClass):
+  
+app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+Started GET "/" for ::1 at 2021-08-06 13:16:49 +0300
+  
+ArgumentError (Missing :controller key on routes definition, please check your routes.):
+  
+config/routes.rb:4:in `block in <main>'
+config/routes.rb:1:in `<main>'
+Started GET "/" for ::1 at 2021-08-06 13:16:49 +0300
+  
+ActionController::RoutingError (No route matches [GET] "/"):
+  
