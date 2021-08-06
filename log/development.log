@@ -42849,3 +42849,24 @@ Processing by ApplicationController#index as HTML
 Completed 204 No Content in 0ms (ActiveRecord: 0.0ms | Allocations: 39)
 
 
+Started GET "/users/sign_in" for ::1 at 2021-08-06 13:54:23 +0300
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::SessionsController#new as HTML
+Completed 200 OK in 31ms (Views: 0.1ms | ActiveRecord: 4.6ms | Allocations: 14350)
+
+
+Started GET "/users/sign_in" for ::1 at 2021-08-06 13:54:24 +0300
+Processing by Devise::SessionsController#new as HTML
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 477)
+
+
+Started GET "/users/sign_in" for ::1 at 2021-08-06 13:54:25 +0300
+Processing by Devise::SessionsController#new as HTML
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 490)
+
+
+Started GET "/users/sign_in" for ::1 at 2021-08-06 13:54:25 +0300
+Processing by Devise::SessionsController#new as HTML
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 486)
+
+
