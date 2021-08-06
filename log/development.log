@@ -41647,3 +41647,180 @@ Processing by Api::V1::TodoItemsController#destroy as */*
 Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 3.3ms | Allocations: 1834)
 
 
+Started GET "/me" for ::1 at 2021-08-06 12:50:40 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 20ms (Views: 0.5ms | ActiveRecord: 6.8ms | Allocations: 4354)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 12:50:40 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.6ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 17ms (Views: 0.4ms | ActiveRecord: 1.6ms | Allocations: 2779)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:50:41 +0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /var/lib/gems/2.7.0/gems/railties-6.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /var/lib/gems/2.7.0/gems/railties-6.1.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.1ms | Allocations: 7)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 231)
+
+
+Started GET "/me" for ::1 at 2021-08-06 12:52:02 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 81ms (Views: 0.4ms | ActiveRecord: 5.7ms | Allocations: 13032)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 12:52:02 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.4ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 15ms (Views: 0.6ms | ActiveRecord: 3.5ms | Allocations: 5816)
+
+
+Started GET "/me" for ::1 at 2021-08-06 12:52:03 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 6ms (Views: 0.5ms | ActiveRecord: 1.0ms | Allocations: 2164)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 12:52:03 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.3ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 11ms (Views: 1.0ms | ActiveRecord: 1.2ms | Allocations: 2776)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:52:04 +0300
+Processing by Api::V1::TodoItemsController#index as HTML
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.0ms | Allocations: 724)
+
+
+  
+NoMethodError (undefined method `id' for nil:NilClass):
+  
+app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+Started GET "/" for ::1 at 2021-08-06 12:52:05 +0300
+Processing by Api::V1::TodoItemsController#index as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 710)
+
+
+  
+NoMethodError (undefined method `id' for nil:NilClass):
+  
+app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+Started GET "/" for ::1 at 2021-08-06 12:52:25 +0300
+  
+ActionController::RoutingError (uninitialized constant MeController):
+  
+Started GET "/" for ::1 at 2021-08-06 12:52:26 +0300
+  
+ActionController::RoutingError (uninitialized constant MeController):
+  
+Started GET "/" for ::1 at 2021-08-06 12:52:26 +0300
+  
+ActionController::RoutingError (uninitialized constant MeController):
+  
+Started GET "/" for ::1 at 2021-08-06 12:52:46 +0300
+  
+ActionController::RoutingError (uninitialized constant CurrentUserController
+Did you mean?  CurrentUsersController):
+  
+Started GET "/" for ::1 at 2021-08-06 12:52:55 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 155)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:52:56 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 103)
+
+
+Started GET "/me" for ::1 at 2021-08-06 12:53:01 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 75ms (Views: 0.4ms | ActiveRecord: 7.2ms | Allocations: 12840)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 12:53:01 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.2ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 19ms (Views: 0.9ms | ActiveRecord: 4.9ms | Allocations: 5819)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:53:04 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 103)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:53:04 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 103)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:55:11 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 104)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:55:11 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 103)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:55:11 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 103)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:55:11 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 103)
+
+
+Started GET "/me" for ::1 at 2021-08-06 12:55:28 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 0.4ms | Allocations: 2164)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 12:55:28 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.4ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 7ms (Views: 0.4ms | ActiveRecord: 1.0ms | Allocations: 2775)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:55:30 +0300
+Processing by CurrentUsersController#me as HTML
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 103)
+
+
