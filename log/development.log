@@ -41398,3 +41398,252 @@ Processing by Api::V1::TodoItemsController#index as */*
 Completed 200 OK in 6ms (Views: 0.5ms | ActiveRecord: 0.8ms | Allocations: 2778)
 
 
+Started GET "/" for ::1 at 2021-08-06 12:04:09 +0300
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /var/lib/gems/2.7.0/gems/railties-6.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /var/lib/gems/2.7.0/gems/railties-6.1.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 4.2ms | Allocations: 294)
+Completed 200 OK in 8ms (Views: 5.3ms | ActiveRecord: 0.0ms | Allocations: 2301)
+
+
+Started GET "/" for ::1 at 2021-08-06 12:04:10 +0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /var/lib/gems/2.7.0/gems/railties-6.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /var/lib/gems/2.7.0/gems/railties-6.1.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 3.4ms | Allocations: 179)
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.0ms | Allocations: 722)
+
+
+Started GET "/me" for ::1 at 2021-08-06 12:04:11 +0300
+Processing by CurrentUsersController#me as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/current_users_controller.rb:3:in `me'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 85ms (Views: 0.6ms | ActiveRecord: 4.8ms | Allocations: 14718)
+
+
+Started GET "/api/v1/todo_items" for ::1 at 2021-08-06 12:04:11 +0300
+Processing by Api::V1::TodoItemsController#index as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "78046418"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mTodolist Load (0.4ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."user_id" = $1 ORDER BY "todolists"."id" ASC[0m  [["user_id", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:4:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 19ms (Views: 0.4ms | ActiveRecord: 5.1ms | Allocations: 6231)
+
+
+Started POST "/api/v1/todo_items" for ::1 at 2021-08-06 12:04:12 +0300
+Processing by Api::V1::TodoItemsController#create as */*
+  Parameters: {"title"=>"", "complete"=>false, "user_id"=>1, "todo_item"=>{"title"=>"", "complete"=>false, "user_id"=>1}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTodolist Create (0.9ms)[0m  [1m[32mINSERT INTO "todolists" ("title", "complete", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", ""], ["complete", false], ["user_id", 1], ["created_at", "2021-08-06 09:04:12.383138"], ["updated_at", "2021-08-06 09:04:12.383138"]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+Completed 200 OK in 18ms (Views: 0.3ms | ActiveRecord: 2.5ms | Allocations: 4999)
+
+
+Started POST "/api/v1/todo_items" for ::1 at 2021-08-06 12:04:12 +0300
+Processing by Api::V1::TodoItemsController#create as */*
+  Parameters: {"title"=>"", "complete"=>false, "user_id"=>1, "todo_item"=>{"title"=>"", "complete"=>false, "user_id"=>1}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTodolist Create (0.6ms)[0m  [1m[32mINSERT INTO "todolists" ("title", "complete", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", ""], ["complete", false], ["user_id", 1], ["created_at", "2021-08-06 09:04:12.913291"], ["updated_at", "2021-08-06 09:04:12.913291"]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+Completed 200 OK in 13ms (Views: 0.6ms | ActiveRecord: 3.8ms | Allocations: 2767)
+
+
+Started POST "/api/v1/todo_items" for ::1 at 2021-08-06 12:04:13 +0300
+Processing by Api::V1::TodoItemsController#create as */*
+  Parameters: {"title"=>"", "complete"=>false, "user_id"=>1, "todo_item"=>{"title"=>"", "complete"=>false, "user_id"=>1}}
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTodolist Create (0.7ms)[0m  [1m[32mINSERT INTO "todolists" ("title", "complete", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", ""], ["complete", false], ["user_id", 1], ["created_at", "2021-08-06 09:04:13.085224"], ["updated_at", "2021-08-06 09:04:13.085224"]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+Completed 200 OK in 12ms (Views: 0.9ms | ActiveRecord: 3.2ms | Allocations: 2736)
+
+
+Started DELETE "/api/v1/todo_items/109" for ::1 at 2021-08-06 12:04:13 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"109"}
+  [1m[36mTodolist Load (0.6ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 109], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.3ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 109]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 3.5ms | Allocations: 1955)
+
+
+Started DELETE "/api/v1/todo_items/108" for ::1 at 2021-08-06 12:04:14 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"108"}
+  [1m[36mTodolist Load (0.5ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 108], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.3ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 108]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 3.6ms | Allocations: 1850)
+
+
+Started DELETE "/api/v1/todo_items/107" for ::1 at 2021-08-06 12:04:14 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"107"}
+  [1m[36mTodolist Load (0.3ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 107], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.4ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 107]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 3.6ms | Allocations: 1836)
+
+
+Started POST "/api/v1/todo_items" for ::1 at 2021-08-06 12:04:16 +0300
+Processing by Api::V1::TodoItemsController#create as */*
+  Parameters: {"title"=>"JavaScript 2.0 fron Alex Lushchenko", "complete"=>false, "user_id"=>1, "todo_item"=>{"title"=>"JavaScript 2.0 fron Alex Lushchenko", "complete"=>false, "user_id"=>1}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTodolist Create (0.7ms)[0m  [1m[32mINSERT INTO "todolists" ("title", "complete", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "JavaScript 2.0 fron Alex Lushchenko"], ["complete", false], ["user_id", 1], ["created_at", "2021-08-06 09:04:16.701993"], ["updated_at", "2021-08-06 09:04:16.701993"]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 4.0ms | Allocations: 2737)
+
+
+Started PUT "/api/v1/todo_items/110" for ::1 at 2021-08-06 12:04:17 +0300
+Processing by Api::V1::TodoItemsController#update as */*
+  Parameters: {"edit_complete"=>true, "edit_title"=>"JavaScript 2.0 fron Alex Lushchenko", "id"=>"110", "todo_item"=>{"edit_complete"=>true, "edit_title"=>"JavaScript 2.0 fron Alex Lushchenko"}}
+  [1m[36mTodolist Load (0.3ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 110], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:22:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+  [1m[36mTodolist Update (0.4ms)[0m  [1m[33mUPDATE "todolists" SET "complete" = $1, "updated_at" = $2 WHERE "todolists"."id" = $3[0m  [["complete", true], ["updated_at", "2021-08-06 09:04:17.510912"], ["id", 110]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 3.6ms | Allocations: 3163)
+
+
+Started DELETE "/api/v1/todo_items/110" for ::1 at 2021-08-06 12:04:18 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"110"}
+  [1m[36mTodolist Load (0.4ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 110], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.2ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 110]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 3.3ms | Allocations: 1834)
+
+
+Started PUT "/api/v1/todo_items/104" for ::1 at 2021-08-06 12:04:19 +0300
+Processing by Api::V1::TodoItemsController#update as */*
+  Parameters: {"edit_complete"=>true, "edit_title"=>"JavaScript 2.0 fron Alex Lushchenko", "id"=>"104", "todo_item"=>{"edit_complete"=>true, "edit_title"=>"JavaScript 2.0 fron Alex Lushchenko"}}
+  [1m[36mTodolist Load (0.3ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 104], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:22:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+  [1m[36mTodolist Update (0.3ms)[0m  [1m[33mUPDATE "todolists" SET "complete" = $1, "updated_at" = $2 WHERE "todolists"."id" = $3[0m  [["complete", true], ["updated_at", "2021-08-06 09:04:19.271803"], ["id", 104]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 3.7ms | Allocations: 3138)
+
+
+Started DELETE "/api/v1/todo_items/104" for ::1 at 2021-08-06 12:04:19 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"104"}
+  [1m[36mTodolist Load (0.3ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 104], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.4ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 104]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 3.9ms | Allocations: 1835)
+
+
+Started POST "/api/v1/todo_items" for ::1 at 2021-08-06 12:04:20 +0300
+Processing by Api::V1::TodoItemsController#create as */*
+  Parameters: {"title"=>"JavaScript 2.0 fron Alex Lushchenko", "complete"=>false, "user_id"=>1, "todo_item"=>{"title"=>"JavaScript 2.0 fron Alex Lushchenko", "complete"=>false, "user_id"=>1}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTodolist Create (0.5ms)[0m  [1m[32mINSERT INTO "todolists" ("title", "complete", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "JavaScript 2.0 fron Alex Lushchenko"], ["complete", false], ["user_id", 1], ["created_at", "2021-08-06 09:04:20.835724"], ["updated_at", "2021-08-06 09:04:20.835724"]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 3.6ms | Allocations: 2737)
+
+
+Started POST "/api/v1/todo_items" for ::1 at 2021-08-06 12:04:21 +0300
+Processing by Api::V1::TodoItemsController#create as */*
+  Parameters: {"title"=>"", "complete"=>false, "user_id"=>1, "todo_item"=>{"title"=>"", "complete"=>false, "user_id"=>1}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTodolist Create (0.6ms)[0m  [1m[32mINSERT INTO "todolists" ("title", "complete", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", ""], ["complete", false], ["user_id", 1], ["created_at", "2021-08-06 09:04:21.264330"], ["updated_at", "2021-08-06 09:04:21.264330"]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:17:in `create'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 3.9ms | Allocations: 2736)
+
+
+Started PUT "/api/v1/todo_items/112" for ::1 at 2021-08-06 12:04:22 +0300
+Processing by Api::V1::TodoItemsController#update as */*
+  Parameters: {"edit_complete"=>true, "edit_title"=>"", "id"=>"112", "todo_item"=>{"edit_complete"=>true, "edit_title"=>""}}
+  [1m[36mTodolist Load (0.3ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 112], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:22:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+  [1m[36mTodolist Update (0.5ms)[0m  [1m[33mUPDATE "todolists" SET "complete" = $1, "updated_at" = $2 WHERE "todolists"."id" = $3[0m  [["complete", true], ["updated_at", "2021-08-06 09:04:22.261446"], ["id", 112]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:27:in `update'
+Completed 200 OK in 12ms (Views: 0.1ms | ActiveRecord: 3.8ms | Allocations: 3135)
+
+
+Started DELETE "/api/v1/todo_items/112" for ::1 at 2021-08-06 12:04:22 +0300
+Processing by Api::V1::TodoItemsController#destroy as */*
+  Parameters: {"id"=>"112"}
+  [1m[36mTodolist Load (0.5ms)[0m  [1m[34mSELECT "todolists".* FROM "todolists" WHERE "todolists"."id" = $1 LIMIT $2[0m  [["id", 112], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTodolist Destroy (0.2ms)[0m  [1m[31mDELETE FROM "todolists" WHERE "todolists"."id" = $1[0m  [["id", 112]]
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/todo_items_controller.rb:34:in `destroy'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 3.3ms | Allocations: 1834)
+
+
