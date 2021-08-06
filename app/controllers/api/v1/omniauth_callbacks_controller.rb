@@ -1,3 +1,5 @@
+require 'base64'
+
 class Api::V1::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCallbacksController
   def omniauth_success
     auth_info = request.env['omniauth.auth']
@@ -21,7 +23,8 @@ class Api::V1::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCallbacksC
       client: token.client,
       uid: user.uid
     }
-    redirect_to "http://localhost:3001/login?token=#{ui_token.to_json}"
+    secret_ui_token = Base64.encode64(ui_token.to_json)
+    redirect_to "http://localhost:3001/login?token=#{secret_ui_token}"
   end
 
 end

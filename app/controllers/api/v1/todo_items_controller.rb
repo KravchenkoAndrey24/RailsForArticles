@@ -1,7 +1,7 @@
 class Api::V1::TodoItemsController < ApplicationController
 
   def index
-    @todo_items = Todolist.where(user_id: current_user.id)
+    @todo_items = Todolist.where(user_id: current_user.id).order(:id).reverse
     render json: @todo_items
 
   end
@@ -23,20 +23,17 @@ class Api::V1::TodoItemsController < ApplicationController
     if todo_item_params[:edit_title]
       new_todo_item.title = todo_item_params[:edit_title]
     end
-    if todo_item_params[:edit_complete].to_s == 'true'
-      new_todo_item.complete = todo_item_params[:edit_complete]
-    end
-    if todo_item_params[:edit_complete].to_s == 'false'
-      new_todo_item.complete = todo_item_params[:edit_complete]
-    end
+    new_todo_item.complete = todo_item_params[:edit_complete]
     new_todo_item.save
-
+    render json: {
+      message: 'changed successfully'
+    }
   end
 
   def destroy
     Todolist.find_by(id: params[:id]).destroy
     render json: {
-      message: 'todo item deleted'
+      message: 'deleted successfully'
     }
   end
 

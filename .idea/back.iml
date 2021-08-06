@@ -56,7 +56,7 @@
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.10.0, ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="factory_bot (v6.2.0, ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="factory_bot_rails (v6.2.0, ruby-2.7.0-p0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="faker (v2.18.0@1a53fb, ruby-2.7.0-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faker (v2.18.0, ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faraday (v1.6.0, ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faraday-em_http (v1.0.0, ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faraday-em_synchrony (v1.0.0, ruby-2.7.0-p0) [gem]" level="application" />
