@@ -12,6 +12,8 @@ gem 'puma', '~> 5.0'
 
 
 gem 'omniauth-github'
+gem 'rspec'
+
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
