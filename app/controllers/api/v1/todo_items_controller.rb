@@ -1,4 +1,5 @@
 class Api::V1::TodoItemsController < ApplicationController
+  before_action :authenticate_user!
 
   def index
     @todo_items = Todolist.where(user_id: current_user[:id]).order(:id).reverse
@@ -7,15 +8,15 @@ class Api::V1::TodoItemsController < ApplicationController
 
   def create
     new_todo_item = Todolist.new(user_id: current_user[:id],
-                                 title: todo_item_params[:title],
-                                 complete: todo_item_params[:complete])
+                                 title: params[:title],
+                                 complete: params[:complete])
     new_todo_item.save
     render json: new_todo_item
   end
 
   def update
     updated_todo_item = Todolist.find_by(id: params[:id])
-    updated_todo_item.update(title: todo_item_params[:edit_title], complete: todo_item_params[:edit_complete])
+    updated_todo_item.update(title: params[:edit_title], complete: params[:edit_complete])
     updated_todo_item.save
     render json: {
       message: 'changed successfully'

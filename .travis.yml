@@ -1,0 +1,20 @@
+language: ruby
+#test
+cache:
+  - bundler
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database authgit_test;' -U postgres
+test:
+  adapter: postgresql
+  database: authgit_test
+script:
+  - bundle exec rspec spec --format documentation
+deploy:
+  provider: heroku
+  api_key:
+    secure: 5c431d78-6415-4beb-a071-bacdc4f483d9
+  app: shrouded-caverns-92109
+  on:
+    repo: KravchenkoAndrey24/RailsForArticles

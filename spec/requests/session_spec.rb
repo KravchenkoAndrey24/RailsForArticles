@@ -37,8 +37,34 @@ RSpec.describe "Session", :type => :request do
       end
     end
   end
-  describe 'DELETE /api/v1/auth/sign_out' do
 
+
+
+
+
+  describe 'GET /me' do
+    before do
+      #login @user created in the beore block in outer describe block
+      post @sign_in_url, params: @login_params, as: :json
+      @headers = {
+        'uid' => response.headers['uid'],
+        'client' => response.headers['client'],
+        'access-token' => response.headers['access-token']
+      }
+    end
+    it 'get User returns with headers status 200' do
+      get '/me', headers: @headers
+      expect(response).to have_http_status(200)
+    end
+    it 'get User returns without headers returns status 401' do
+      get '/me'
+      expect(response).to have_http_status(401)
+    end
+
+  end
+
+
+  describe 'DELETE /api/v1/auth/sign_out' do
     before do
       #login @user created in the beore block in outer describe block
       post @sign_in_url, params: @login_params, as: :json
@@ -52,6 +78,5 @@ RSpec.describe "Session", :type => :request do
       delete @sign_out_url, headers: @headers
       expect(response).to have_http_status(200)
     end
-
   end
 end
