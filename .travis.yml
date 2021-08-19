@@ -1,6 +1,5 @@
 language: ruby
 #test
-dist: xenial
 cache:
   - bundler
 services:
