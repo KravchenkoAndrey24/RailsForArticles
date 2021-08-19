@@ -19,7 +19,7 @@ class Api::V1::TodoItemsController < ApplicationController
     updated_todo_item.update(title: params[:edit_title], complete: params[:edit_complete])
     updated_todo_item.save
     render json: {
-      message: 'changed successfully'
+      message: 'changed  successfully'
     }
   end
 
