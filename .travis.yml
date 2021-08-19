@@ -1,5 +1,7 @@
 language: ruby
 #test
+before_install:
+  - gem install bundler
 cache:
   - bundler
 services:
