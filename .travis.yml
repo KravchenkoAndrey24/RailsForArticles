@@ -17,8 +17,7 @@ script:
   - bundle exec rspec spec --format documentation
 deploy:
   provider: heroku
-  api_key:
-    secure: 8e661bb5-d4dc-4e56-91fc-d109ef25e5c5
+  api_key: 8e661bb5-d4dc-4e56-91fc-d109ef25e5c5
   app: shrouded-caverns-92109
   on:
     all_branches: true
