@@ -21,4 +21,5 @@ deploy:
     secure: 5c431d78-6415-4beb-a071-bacdc4f483d9
   app: shrouded-caverns-92109
   on:
+    all_branches: true
     repo: KravchenkoAndrey24/RailsForArticles
