@@ -1,5 +1,7 @@
 language: ruby
 #test
+before_install:
+  - gem install bundler
 rvm:
       - 2.7.0
 cache:
