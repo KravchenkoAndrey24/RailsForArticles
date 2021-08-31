@@ -3,7 +3,7 @@ language: ruby
 before_install:
   - gem install bundler
 rvm:
-      - 2.7.0
+      - 3.0.0
 cache:
   - bundler
 services:
