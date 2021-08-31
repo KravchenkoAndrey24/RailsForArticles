@@ -2,7 +2,7 @@ class Api::V1::TodoItemsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @todo_items = Todolist.where(user_id: current_user[:id]).order(:id).reverse
+    @todo_items = Todolist.where(user_id: current_user[:id]).order(:updated_at).reverse
     render json: @todo_items
   end
 
@@ -45,4 +45,3 @@ class Api::V1::TodoItemsController < ApplicationController
     params.require(:todo_item).permit(:title, :complete, :edit_complete, :edit_title)
   end
 end
-
